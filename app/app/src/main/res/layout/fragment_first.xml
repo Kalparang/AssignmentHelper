@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FirstFragment">
+
+    <Button
+        android:id="@+id/VB_1_5_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_side_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_bott_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_5_1"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_5_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_4_1" />
+
+    <Button
+        android:id="@+id/VB_1_5_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_side_margin"
+        android:layout_marginBottom="@dimen/vb_bott_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_5_4"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_5_3"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_4_4" />
+
+    <Button
+        android:id="@+id/VB_1_5_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_bott_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_5_3"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_5_4"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_5_2"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_4_3" />
+
+    <Button
+        android:id="@+id/VB_1_5_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_bott_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_5_2"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_5_3"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_5_1"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_4_2" />
+
+    <Button
+        android:id="@+id/VB_1_4_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_side_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_4_1"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_5_1"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_4_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_3_1" />
+
+    <Button
+        android:id="@+id/VB_1_4_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_4_3"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_5_3"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_4_4"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_4_2"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_3_3" />
+
+    <Button
+        android:id="@+id/VB_1_4_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_side_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_4_4"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_5_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_4_3"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_3_4" />
+
+    <Button
+        android:id="@+id/VB_1_4_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_4_2"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_5_2"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_4_3"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_4_1"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_3_2" />
+
+    <Button
+        android:id="@+id/VB_1_3_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_side_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_3_1"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_4_1"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_3_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_2_1" />
+
+    <Button
+        android:id="@+id/VB_1_3_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_3_3"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_4_3"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_3_4"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_3_2"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_2_3" />
+
+    <Button
+        android:id="@+id/VB_1_3_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_side_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_3_4"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_4_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_3_3"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_2_4" />
+
+    <Button
+        android:id="@+id/VB_1_3_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_3_2"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_4_2"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_3_3"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_3_1"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_2_2" />
+
+    <Button
+        android:id="@+id/VB_1_2_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_side_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_2_1"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_3_1"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_2_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_1_1" />
+
+    <Button
+        android:id="@+id/VB_1_2_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_2_3"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_3_3"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_2_4"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_2_2"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_1_3" />
+
+    <Button
+        android:id="@+id/VB_1_2_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_side_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_2_4"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_3_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_2_3"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_1_4" />
+
+    <Button
+        android:id="@+id/VB_1_2_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_2_2"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_3_2"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_2_3"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_2_1"
+        app:layout_constraintTop_toBottomOf="@+id/VB_1_1_2" />
+
+    <Button
+        android:id="@+id/button_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/VB_1_1_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_side_margin"
+        android:layout_marginTop="@dimen/vb_top_margin"
+        android:layout_marginEnd="@dimen/vb_vert_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_1_1"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_2_1"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_1_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/VB_1_1_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_top_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_1_2"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_2_2"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_1_3"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_1_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/VB_1_1_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_top_margin"
+        android:layout_marginEnd="@dimen/vb_horz_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_1_3"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_2_3"
+        app:layout_constraintEnd_toStartOf="@+id/VB_1_1_4"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_1_2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/VB_1_1_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/vb_horz_margin"
+        android:layout_marginTop="@dimen/vb_top_margin"
+        android:layout_marginEnd="@dimen/vb_side_margin"
+        android:layout_marginBottom="@dimen/vb_vert_margin"
+        android:onClick="VB_OnClick"
+        android:tag="VB_1_1_4"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/VB_1_2_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/VB_1_1_3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

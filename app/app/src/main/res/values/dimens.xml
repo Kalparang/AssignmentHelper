@@ -1,0 +1,8 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="vb_vert_margin">5dp</dimen>
+    <dimen name="vb_horz_margin">5dp</dimen>
+    <dimen name="vb_top_margin">120dp</dimen>
+    <dimen name="vb_side_margin">20dp</dimen>
+    <dimen name="vb_bott_margin">50dp</dimen>
+</resources>
