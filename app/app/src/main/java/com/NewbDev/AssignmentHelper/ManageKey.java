@@ -1,11 +1,13 @@
 package com.NewbDev.AssignmentHelper;
 
+import android.util.Log;
+import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 
 import java.util.HashMap;
 
 public class ManageKey {
-    public static final int row = 5, col = 4;
+    public static final int row = 6, col = 4;
     private static int KeyMap[][][][];
     private static String KeyLabel[][][];
     private static HashMap<Integer, String> KeyCode;
@@ -226,12 +228,37 @@ public class ManageKey {
             KeyMap[0][3][3][0] = 0x6C;
 
             KeyMap[0][4][0][0] = 0x60;
+
+            //00
             KeyMap[0][4][1] = new int[2];
             KeyMap[0][4][1][0] = 0x60;
             KeyMap[0][4][1][1] = 0x60;
+
             KeyMap[0][4][2][0] = 0x6E;
             KeyMap[0][4][3][0] = 0x6C;
+
+            KeyMap[0][5][0][0] = 0x4A;
+
+            //3.14
+            KeyMap[0][5][1] = new int[4];
+            KeyMap[0][5][1][0] = 0x63;
+            KeyMap[0][5][1][1] = 0x6E;
+            KeyMap[0][5][1][2] = 0x61;
+            KeyMap[0][5][1][3] = 0x64;
+
+            //exp() 후 왼쪽 한칸
+            KeyMap[0][5][2] = new int[6];
+            KeyMap[0][5][2][0] = 0x45;
+            KeyMap[0][5][2][1] = 0x58;
+            KeyMap[0][5][2][2] = 0x50;
+            KeyMap[0][5][2][3] = 0x39; //Shift
+            KeyMap[0][5][2][4] = 0x30; //Shift
+            KeyMap[0][5][2][5] = 0x25;
+
+            KeyMap[0][5][3][0] = 0x6C;
+
         }
+
         //2번 키패드
         {
             KeyMap[1][0][0][0] = 'j';
@@ -269,11 +296,30 @@ public class ManageKey {
 
         //저장된 라벨 가져오기
         //미구현
+        KeyLabel[0][1][0] = "7";
+        KeyLabel[0][1][1] = "8";
+        KeyLabel[0][1][2] = "9";
+
+        KeyLabel[0][2][0] = "4";
+        KeyLabel[0][2][1] = "5";
+        KeyLabel[0][2][2] = "6";
+
+        KeyLabel[0][3][0] = "1";
+        KeyLabel[0][3][1] = "2";
+        KeyLabel[0][3][2] = "3";
+
+        KeyLabel[0][4][1] = "00";
+        KeyLabel[0][5][0] = "j";
+        KeyLabel[0][5][1] = "pi";
+        KeyLabel[0][5][2] = "e";
 
         //저장된 라벨이 없다면 기본 라벨 지정
         for(int k = 0; k < 2; k++) {
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < col; j++) {
+                    if(KeyLabel[k][i][j] != null)
+                        continue;
+
                     if (KeyMap[k][i][j].length > 1)
                         KeyLabel[k][i][j] = "매크로";
                     else {

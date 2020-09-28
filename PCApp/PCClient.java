@@ -23,7 +23,7 @@ public class PCClient {
 		dos = new DataOutputStream(socket.getOutputStream());
 		try
 		{
-		//robot = new Robot();
+		robot = new Robot();
 		}
 		catch(Exception e)
 		{}
@@ -39,30 +39,17 @@ public class PCClient {
 		System.out.println(msg);
 		try
 		{
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		}
 		catch(Exception e)
 		{}
-
-		if(msg.charAt(0) == 'A')
+	
+		String KeyList[] = msg.split(",");
+		
+		for(int i = 0; i < KeyList.length; i++)
 		{
-			//robot.keyPress(65);
-			//robot.keyRelease(65);
-		}
-		else if(msg.charAt(0) == 'B')
-		{
-			//robot.keyPress(66);
-			//robot.keyRelease(66);
-		}
-		else if(msg.charAt(0) == 'C')
-		{
-			//robot.keyPress(67);
-			//robot.keyRelease(67);
-		}
-		else
-		{
-			//robot.keyPress(68);
-			//robot.keyRelease(68);
+			robot.keyPress(Integer.parseInt(KeyList[i]));
+			robot.keyRelease(Integer.parseInt(KeyList[i]));
 		}
     }
 }
