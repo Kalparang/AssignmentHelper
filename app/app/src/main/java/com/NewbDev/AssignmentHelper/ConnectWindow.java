@@ -65,21 +65,14 @@ public class ConnectWindow {
         public void run() {
             try {
                 serverSocket = new ServerSocket(9000);
-
                 socket = serverSocket.accept();
+
+                //socket = new Socket("127.0.0.1", 9000);
+
                 inputStream = new DataInputStream(socket.getInputStream());
                 outputStream = new DataOutputStream(socket.getOutputStream());
-
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                if (serverSocket != null) {
-                    try {
-                        serverSocket.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         }
     }

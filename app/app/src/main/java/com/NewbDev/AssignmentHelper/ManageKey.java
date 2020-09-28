@@ -165,6 +165,8 @@ public class ManageKey {
             KeyCode.put(0xB5, "Select Media");
             KeyCode.put(0xB6, "App1");
             KeyCode.put(0xB7, "App2");
+            KeyCode.put(0xDB, "{");
+            KeyCode.put(0xdd, "}");
         }
 
         InitKeyMap();
@@ -255,38 +257,91 @@ public class ManageKey {
             KeyMap[0][5][2][4] = 0x30; //Shift
             KeyMap[0][5][2][5] = 0x25;
 
-            KeyMap[0][5][3][0] = 0x6C;
+            //KeyMap[0][5][3][0] = 0x6C;
 
         }
 
         //2번 키패드
         {
-            KeyMap[1][0][0][0] = 'j';
+            KeyMap[1][0][0][0] = 0x4a;
             KeyMap[1][0][1][0] = 111;
             KeyMap[1][0][2][0] = 106;
             KeyMap[1][0][3][0] = 109;
 
-            KeyMap[1][1][0][0] = 120;
-            KeyMap[1][1][1][0] = 121;
-            KeyMap[1][1][2][0] = 122;
-            KeyMap[1][1][3][0] = 123;
+            //sin
+            KeyMap[1][1][0] = new int[3];
+            KeyMap[1][1][0][0] = 0x53;
+            KeyMap[1][1][0][1] = 0x49;
+            KeyMap[1][1][0][2] = 0x4e;
+            //cos
+            KeyMap[1][1][1] = new int[3];
+            KeyMap[1][1][1][0] = 0x43;
+            KeyMap[1][1][1][1] = 0x4f;
+            KeyMap[1][1][1][2] = 0x53;
+            //tan
+            KeyMap[1][1][2] = new int[3];
+            KeyMap[1][1][2][0] = 0x54;
+            KeyMap[1][1][2][1] = 0x41;
+            KeyMap[1][1][2][2] = 0x4e;
+            //KeyMap[1][1][3][0] = 123;
 
-            KeyMap[1][2][0][0] = 116;
-            KeyMap[1][2][1][0] = 117;
-            KeyMap[1][2][2][0] = 118;
-            KeyMap[1][2][3][0] = 119;
+            //sin-1
+            KeyMap[1][2][0] = new int[5];
+            KeyMap[1][2][0][0] = 0x53;
+            KeyMap[1][2][0][1] = 0x49;
+            KeyMap[1][2][0][2] = 0x4e;
+            KeyMap[1][2][0][3] = 0xbd;
+            KeyMap[1][2][0][4] = 0x31;
+            //cos-1
+            KeyMap[1][2][1] = new int[5];
+            KeyMap[1][2][1][0] = 0x43;
+            KeyMap[1][2][1][1] = 0x4f;
+            KeyMap[1][2][1][2] = 0x53;
+            KeyMap[1][2][1][3] = 0xbd;
+            KeyMap[1][2][1][4] = 0x31;
+            //tan-1
+            KeyMap[1][2][2] = new int[5];
+            KeyMap[1][2][2][0] = 0x54;
+            KeyMap[1][2][2][1] = 0x41;
+            KeyMap[1][2][2][2] = 0x4e;
+            KeyMap[1][2][2][3] = 0xbd;
+            KeyMap[1][2][2][4] = 0x31;
+            //KeyMap[1][2][3][0] = 119;
 
-            KeyMap[1][3][0][0] = 112;
-            KeyMap[1][3][1][0] = 113;
-            KeyMap[1][3][2][0] = 114;
-            KeyMap[1][3][3][0] = 115;
+            //sinh
+            KeyMap[1][3][0] = new int[4];
+            KeyMap[1][3][0][0] = 0x53;
+            KeyMap[1][3][0][1] = 0x49;
+            KeyMap[1][3][0][2] = 0x4e;
+            KeyMap[1][3][0][3] = 0x48;
+            //cosh
+            KeyMap[1][3][1] = new int[4];
+            KeyMap[1][3][1][0] = 0x43;
+            KeyMap[1][3][1][1] = 0x4f;
+            KeyMap[1][3][1][2] = 0x53;
+            KeyMap[1][3][1][3] = 0x48;
+            //tanh
+            KeyMap[1][3][2] = new int[4];
+            KeyMap[1][3][2][0] = 0x54;
+            KeyMap[1][3][2][1] = 0x41;
+            KeyMap[1][3][2][2] = 0x4e;
+            KeyMap[1][3][2][3] = 0x48;
 
-            KeyMap[1][4][0][0] = 96;
-            KeyMap[1][4][1] = new int[2];
-            KeyMap[1][4][1][0] = 96;
-            KeyMap[1][4][1][1] = 96;
-            KeyMap[1][4][2][0] = 110;
-            KeyMap[1][4][3][0] = 13;
+            //KeyMap[1][3][3][0] = 115;
+
+            //(
+            KeyMap[1][4][0][0] = 0x39;
+            //)
+            KeyMap[1][4][1][0] = 0x30;
+            //KeyMap[1][4][2][0] = 110;
+            //KeyMap[1][4][3][0] = 13;
+
+            //{
+            KeyMap[1][5][0][0] = 0xdb;
+            //}
+            KeyMap[1][5][1][0] = 0xdd;
+            //KeyMap[1][5][2][0] = 114;
+            //KeyMap[1][5][3][0] = 115;
         }
     }
 
@@ -307,11 +362,33 @@ public class ManageKey {
         KeyLabel[0][3][0] = "1";
         KeyLabel[0][3][1] = "2";
         KeyLabel[0][3][2] = "3";
+        KeyLabel[0][3][3] = "Enter";
 
+        KeyLabel[0][4][0] = "0";
         KeyLabel[0][4][1] = "00";
+        KeyLabel[0][4][3] = "Enter";
+
         KeyLabel[0][5][0] = "j";
         KeyLabel[0][5][1] = "pi";
         KeyLabel[0][5][2] = "e";
+
+        KeyLabel[1][1][0] = "sin";
+        KeyLabel[1][1][1] = "cos";
+        KeyLabel[1][1][2] = "tan";
+
+        KeyLabel[1][2][0] = "sin-1";
+        KeyLabel[1][2][1] = "cos-1";
+        KeyLabel[1][2][2] = "tan-1";
+
+        KeyLabel[1][3][0] = "sinh";
+        KeyLabel[1][3][1] = "cosh";
+        KeyLabel[1][3][2] = "tanh";
+
+        KeyLabel[1][4][0] = "(";
+        KeyLabel[1][4][1] = ")";
+
+        KeyLabel[1][5][0] = "{";
+        KeyLabel[1][5][1] = "}";
 
         //저장된 라벨이 없다면 기본 라벨 지정
         for(int k = 0; k < 2; k++) {
@@ -319,6 +396,11 @@ public class ManageKey {
                 for (int j = 0; j < col; j++) {
                     if(KeyLabel[k][i][j] != null)
                         continue;
+                    if(KeyMap[k][i][j][0] == 0)
+                    {
+                        KeyLabel[k][i][j] = "";
+                        continue;
+                    }
 
                     if (KeyMap[k][i][j].length > 1)
                         KeyLabel[k][i][j] = "매크로";
