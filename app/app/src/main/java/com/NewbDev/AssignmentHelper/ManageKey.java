@@ -328,7 +328,6 @@ public class ManageKey {
             KeyMap[1][3][2][3] = 0x48;
 
             //KeyMap[1][3][3][0] = 115;
-
             //(
             KeyMap[1][4][0][0] = 0x39;
             //)

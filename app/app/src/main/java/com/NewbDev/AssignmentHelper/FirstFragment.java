@@ -1,25 +1,20 @@
 package com.NewbDev.AssignmentHelper;
 
-import com.NewbDev.AssignmentHelper.ManageKey;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import java.security.Key;
-
 public class FirstFragment extends Fragment {
 
     private int KeyMap[][][];
-    private Button VBList[];
+    private static Button VBList[];
     ConnectWindow cw;
 
     private View.OnTouchListener VBListener = new View.OnTouchListener() {
@@ -47,6 +42,11 @@ public class FirstFragment extends Fragment {
             return true;
         }
     };
+
+    public static void ButtonClickable(boolean able){
+        for(int i = 0; i < ManageKey.col * ManageKey.row; i++)
+            VBList[i].setClickable(able);
+    }
 
     @Override
     public View onCreateView(
@@ -89,10 +89,8 @@ public class FirstFragment extends Fragment {
                     index += i * 4;
 
                 VBList[index] = view.findViewWithTag("VB_1_" + (i + 1) + "_" + (j + 1));
-
                 VBList[index].setText(KeyLabel[i][j]);
                 VBList[index].setOnTouchListener(VBListener);
-                VBList[index].setClickable(true);
             }
         }
 

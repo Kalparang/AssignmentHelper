@@ -14,13 +14,16 @@ import androidx.navigation.fragment.NavHostFragment;
 public class SecondFragment extends Fragment {
 
     private int KeyMap[][][];
+    private static Button VBList[];
+    ConnectWindow cw;
 
     private View.OnTouchListener VBListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             String sp[] = ((String)v.getTag()).split("_");
             boolean IsKeyDown = (event.getAction() == MotionEvent.ACTION_DOWN);
-
+            if(!IsKeyDown)
+                return false;
             if(sp.length == 4)
             {
                 int index = Integer.parseInt(sp[1]) - 1;
@@ -32,14 +35,18 @@ public class SecondFragment extends Fragment {
                 for(int i = 1; i < KeyMap[row][col].length; i++)
                     output = output + "," + String.valueOf(KeyMap[row][col][i]);
 
-                //Toast.makeText(this, output, Toast.LENGTH_LONG).show();
-
-                //new Thread(new SocketThread(output)).start();
+                //Toast.makeText(getActivity(), output, Toast.LENGTH_SHORT).show();
+                cw.SendData(output);
             }
 
             return true;
         }
     };
+
+    public static void ButtonClickable(boolean able){
+        for(int i = 0; i < ManageKey.col * ManageKey.row; i++)
+            VBList[i].setClickable(able);
+    }
 
     @Override
     public View onCreateView(
@@ -52,6 +59,7 @@ public class SecondFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         InitButton(view);
+        cw = new ConnectWindow();
 
         super.onViewCreated(view, savedInstanceState);
 
@@ -68,42 +76,48 @@ public class SecondFragment extends Fragment {
     {
         ManageKey mKey = new ManageKey();
         KeyMap = mKey.getKeyMap(2);
+
         String KeyLabel[][] = mKey.getKeyLabel(2);
+        VBList = new Button[mKey.row * mKey.col];
 
         for(int i = 0; i < mKey.row; i++)
         {
             for(int j = 0; j < mKey.col; j++)
             {
-                Button b = view.findViewWithTag("VB_2_" + (i + 1) + "_" + (j + 1));
+                int index = j;
+                if(i > 0)
+                    index += i * 4;
 
-                b.setText(KeyLabel[i][j]);
+                VBList[index] = view.findViewWithTag("VB_2_" + (i + 1) + "_" + (j + 1));
+
+                VBList[index].setText(KeyLabel[i][j]);
+                VBList[index].setOnTouchListener(VBListener);
             }
         }
 
-        view.findViewById(R.id.VB_2_1_1).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_1_2).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_1_3).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_1_4).setOnTouchListener(VBListener);
-
-        view.findViewById(R.id.VB_2_2_1).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_2_2).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_2_3).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_2_4).setOnTouchListener(VBListener);
-
-        view.findViewById(R.id.VB_2_3_1).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_3_2).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_3_3).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_3_4).setOnTouchListener(VBListener);
-
-        view.findViewById(R.id.VB_2_4_1).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_4_2).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_4_3).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_4_4).setOnTouchListener(VBListener);
-
-        view.findViewById(R.id.VB_2_5_1).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_5_2).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_5_3).setOnTouchListener(VBListener);
-        view.findViewById(R.id.VB_2_5_4).setOnTouchListener(VBListener);
-
+//        view.findViewById(R.id.VB_2_1_1).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_1_2).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_1_3).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_1_4).setOnTouchListener(VBListener);
+//
+//        view.findViewById(R.id.VB_2_2_1).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_2_2).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_2_3).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_2_4).setOnTouchListener(VBListener);
+//
+//        view.findViewById(R.id.VB_2_3_1).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_3_2).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_3_3).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_3_4).setOnTouchListener(VBListener);
+//
+//        view.findViewById(R.id.VB_2_4_1).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_4_2).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_4_3).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_4_4).setOnTouchListener(VBListener);
+//
+//        view.findViewById(R.id.VB_2_5_1).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_5_2).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_5_3).setOnTouchListener(VBListener);
+//        view.findViewById(R.id.VB_2_5_4).setOnTouchListener(VBListener);
     }
 }

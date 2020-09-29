@@ -15,6 +15,7 @@ import android.view.View;
 
 import android.os.Handler;
 import android.os.Message;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
@@ -36,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     public static int KeyMap[][][][];
     public static HashMap<Integer, String> KeyCode;
 
-    TextView ConnStat;
-
     ConnectWindow cw;
 
     @Override
@@ -46,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        ConnStat = findViewById(R.id.TV_ConnStat);
 
         mKey = new ManageKey();
         mKey.Init();
@@ -60,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
 
         cw = new ConnectWindow();
         cw.StartServer();
+
+        cw.setConnStat((TextView) findViewById(R.id.TV_ConnStat));
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override
