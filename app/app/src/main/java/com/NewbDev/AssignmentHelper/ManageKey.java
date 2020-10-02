@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class ManageKey {
     public static final int row = 6, col = 4;
-    private static int KeyMap[][][][];
+    private static KeyCodeStruct KeyMap[][][][];
     private static String KeyLabel[][][];
     private static HashMap<Integer, String> KeyCode;
 
@@ -173,7 +173,7 @@ public class ManageKey {
         InitKeyLabel();
     }
 
-    public int[][][] getKeyMap(int index)
+    public KeyCodeStruct[][][] getKeyMap(int index)
     {
         if(index < 0)
             return null;
@@ -201,7 +201,7 @@ public class ManageKey {
     private void InitKeyMap()
     {
         //키맵 초기화
-        KeyMap = new int[2][row][col][1];
+        KeyMap = new KeyCodeStruct[2][row][col][1];
 
         //저장된 키맵 가져오기
         //미구현
@@ -209,138 +209,140 @@ public class ManageKey {
         //기본 키맵
         //1번 키패드
         {
-            KeyMap[0][0][0][0] = 0x4A;
-            KeyMap[0][0][1][0] = 0x6F;
-            KeyMap[0][0][2][0] = 0x6A;
-            KeyMap[0][0][3][0] = 0x6D;
+            KeyMap[0][0][0][0] = new KeyCodeStruct(0x4A);
+            KeyMap[0][0][1][0] = new KeyCodeStruct(0x6F);
+            KeyMap[0][0][2][0] = new KeyCodeStruct(0x6A);
+            KeyMap[0][0][3][0] = new KeyCodeStruct(0x6D);
 
-            KeyMap[0][1][0][0] = 0x67;
-            KeyMap[0][1][1][0] = 0x68;
-            KeyMap[0][1][2][0] = 0x69;
-            KeyMap[0][1][3][0] = 0x6B;
+            KeyMap[0][1][0][0] = new KeyCodeStruct(0x67);
+            KeyMap[0][1][1][0] = new KeyCodeStruct(0x68);
+            KeyMap[0][1][2][0] = new KeyCodeStruct(0x69);
+            KeyMap[0][1][3][0] = new KeyCodeStruct(0x6B);
 
-            KeyMap[0][2][0][0] = 0x64;
-            KeyMap[0][2][1][0] = 0x65;
-            KeyMap[0][2][2][0] = 0x66;
-            KeyMap[0][2][3][0] = 0x6B;
+            KeyMap[0][2][0][0] = new KeyCodeStruct(0x64);
+            KeyMap[0][2][1][0] = new KeyCodeStruct(0x65);
+            KeyMap[0][2][2][0] = new KeyCodeStruct(0x66);
+            KeyMap[0][2][3][0] = new KeyCodeStruct(0x6B);
 
-            KeyMap[0][3][0][0] = 0x61;
-            KeyMap[0][3][1][0] = 0x62;
-            KeyMap[0][3][2][0] = 0x63;
-            KeyMap[0][3][3][0] = 0x6C;
+            KeyMap[0][3][0][0] = new KeyCodeStruct(0x61);
+            KeyMap[0][3][1][0] = new KeyCodeStruct(0x62);
+            KeyMap[0][3][2][0] = new KeyCodeStruct(0x63);
+            KeyMap[0][3][3][0] = new KeyCodeStruct(0x6C);
 
-            KeyMap[0][4][0][0] = 0x60;
+            KeyMap[0][4][0][0] = new KeyCodeStruct(0x60);
 
             //00
-            KeyMap[0][4][1] = new int[2];
-            KeyMap[0][4][1][0] = 0x60;
-            KeyMap[0][4][1][1] = 0x60;
+            KeyMap[0][4][1] = new KeyCodeStruct[2];
+            KeyMap[0][4][1][0] = new KeyCodeStruct(0x60);
+            KeyMap[0][4][1][1] = new KeyCodeStruct(0x60);
 
-            KeyMap[0][4][2][0] = 0x6E;
-            KeyMap[0][4][3][0] = 0x6C;
+            KeyMap[0][4][2][0] = new KeyCodeStruct(0x6E);
+            KeyMap[0][4][3][0] = new KeyCodeStruct(0x6C);
 
-            KeyMap[0][5][0][0] = 0x4A;
+            KeyMap[0][5][0][0] = new KeyCodeStruct(0x4A);
 
             //3.14
-            KeyMap[0][5][1] = new int[4];
-            KeyMap[0][5][1][0] = 0x63;
-            KeyMap[0][5][1][1] = 0x6E;
-            KeyMap[0][5][1][2] = 0x61;
-            KeyMap[0][5][1][3] = 0x64;
+            KeyMap[0][5][1] = new KeyCodeStruct[4];
+            KeyMap[0][5][1][0] = new KeyCodeStruct(0x63);
+            KeyMap[0][5][1][1] = new KeyCodeStruct(0x6E);
+            KeyMap[0][5][1][2] = new KeyCodeStruct(0x61);
+            KeyMap[0][5][1][3] = new KeyCodeStruct(0x64);
 
             //exp() 후 왼쪽 한칸
-            KeyMap[0][5][2] = new int[6];
-            KeyMap[0][5][2][0] = 0x45;
-            KeyMap[0][5][2][1] = 0x58;
-            KeyMap[0][5][2][2] = 0x50;
-            KeyMap[0][5][2][3] = 0x39; //Shift
-            KeyMap[0][5][2][4] = 0x30; //Shift
-            KeyMap[0][5][2][5] = 0x25;
-
-            //KeyMap[0][5][3][0] = 0x6C;
-
+            KeyMap[0][5][2] = new KeyCodeStruct[6];
+            KeyMap[0][5][2][0] = new KeyCodeStruct(0x45);
+            KeyMap[0][5][2][1] = new KeyCodeStruct(0x58);
+            KeyMap[0][5][2][2] = new KeyCodeStruct(0x50);
+            KeyMap[0][5][2][3] = new KeyCodeStruct(0x39);
+            KeyMap[0][5][2][3].IsShiftDown = true;
+            KeyMap[0][5][2][4] = new KeyCodeStruct(0x30);
+            KeyMap[0][5][2][4].IsShiftDown = true;
+            KeyMap[0][5][2][5] = new KeyCodeStruct(0x25);
         }
 
         //2번 키패드
         {
-            KeyMap[1][0][0][0] = 0x4a;
-            KeyMap[1][0][1][0] = 111;
-            KeyMap[1][0][2][0] = 106;
-            KeyMap[1][0][3][0] = 109;
+            KeyMap[1][0][0][0] = new KeyCodeStruct(0x4a);
+            KeyMap[1][0][1][0] = new KeyCodeStruct(0x6F);
+            KeyMap[1][0][2][0] = new KeyCodeStruct(0x6A);
+            KeyMap[1][0][3][0] = new KeyCodeStruct(0x6D);
 
-            //sin
-            KeyMap[1][1][0] = new int[3];
-            KeyMap[1][1][0][0] = 0x53;
-            KeyMap[1][1][0][1] = 0x49;
-            KeyMap[1][1][0][2] = 0x4e;
-            //cos
-            KeyMap[1][1][1] = new int[3];
-            KeyMap[1][1][1][0] = 0x43;
-            KeyMap[1][1][1][1] = 0x4f;
-            KeyMap[1][1][1][2] = 0x53;
-            //tan
-            KeyMap[1][1][2] = new int[3];
-            KeyMap[1][1][2][0] = 0x54;
-            KeyMap[1][1][2][1] = 0x41;
-            KeyMap[1][1][2][2] = 0x4e;
-            //KeyMap[1][1][3][0] = 123;
+            //sin()
+            KeyMap[1][1][0] = new KeyCodeStruct[6];
+            KeyMap[1][1][0][0] = new KeyCodeStruct(0x53);
+            KeyMap[1][1][0][1] = new KeyCodeStruct(0x49);
+            KeyMap[1][1][0][2] = new KeyCodeStruct(0x4e);
+            KeyMap[1][1][0][3] = new KeyCodeStruct(0x39, true, false, false);
+            KeyMap[1][1][0][4] = new KeyCodeStruct(0x30, true, false, false);
+            KeyMap[1][1][0][5] = new KeyCodeStruct(0x25);
+            //cos()
+            KeyMap[1][1][1] = new KeyCodeStruct[6];
+            KeyMap[1][1][1][0] = new KeyCodeStruct(0x43);
+            KeyMap[1][1][1][1] = new KeyCodeStruct(0x4f);
+            KeyMap[1][1][1][2] = new KeyCodeStruct(0x53);
+            KeyMap[1][1][1][3] = new KeyCodeStruct(0x39, true, false, false);
+            KeyMap[1][1][1][4] = new KeyCodeStruct(0x30, true, false, false);
+            KeyMap[1][1][1][5] = new KeyCodeStruct(0x25);
+            //tan()
+            KeyMap[1][1][2] = new KeyCodeStruct[6];
+            KeyMap[1][1][2][0] = new KeyCodeStruct(0x54);
+            KeyMap[1][1][2][1] = new KeyCodeStruct(0x41);
+            KeyMap[1][1][2][2] = new KeyCodeStruct(0x4e);
+            KeyMap[1][1][2][3] = new KeyCodeStruct(0x39, true, false, false);
+            KeyMap[1][1][2][4] = new KeyCodeStruct(0x30, true, false, false);
+            KeyMap[1][1][2][5] = new KeyCodeStruct(0x25);
 
             //sin-1
-            KeyMap[1][2][0] = new int[5];
-            KeyMap[1][2][0][0] = 0x53;
-            KeyMap[1][2][0][1] = 0x49;
-            KeyMap[1][2][0][2] = 0x4e;
-            KeyMap[1][2][0][3] = 0xbd;
-            KeyMap[1][2][0][4] = 0x31;
+            KeyMap[1][2][0] = new KeyCodeStruct[5];
+            KeyMap[1][2][0][0] = new KeyCodeStruct(0x53);
+            KeyMap[1][2][0][1] = new KeyCodeStruct(0x49);
+            KeyMap[1][2][0][2] = new KeyCodeStruct(0x4e);
+            KeyMap[1][2][0][3] = new KeyCodeStruct(0xbd);
+            KeyMap[1][2][0][4] = new KeyCodeStruct(0x31);
             //cos-1
-            KeyMap[1][2][1] = new int[5];
-            KeyMap[1][2][1][0] = 0x43;
-            KeyMap[1][2][1][1] = 0x4f;
-            KeyMap[1][2][1][2] = 0x53;
-            KeyMap[1][2][1][3] = 0xbd;
-            KeyMap[1][2][1][4] = 0x31;
+            KeyMap[1][2][1] = new KeyCodeStruct[5];
+            KeyMap[1][2][1][0] = new KeyCodeStruct(0x43);
+            KeyMap[1][2][1][1] = new KeyCodeStruct(0x4f);
+            KeyMap[1][2][1][2] = new KeyCodeStruct(0x53);
+            KeyMap[1][2][1][3] = new KeyCodeStruct(0xbd);
+            KeyMap[1][2][1][4] = new KeyCodeStruct(0x31);
             //tan-1
-            KeyMap[1][2][2] = new int[5];
-            KeyMap[1][2][2][0] = 0x54;
-            KeyMap[1][2][2][1] = 0x41;
-            KeyMap[1][2][2][2] = 0x4e;
-            KeyMap[1][2][2][3] = 0xbd;
-            KeyMap[1][2][2][4] = 0x31;
-            //KeyMap[1][2][3][0] = 119;
+            KeyMap[1][2][2] = new KeyCodeStruct[5];
+            KeyMap[1][2][2][0] = new KeyCodeStruct(0x54);
+            KeyMap[1][2][2][1] = new KeyCodeStruct(0x41);
+            KeyMap[1][2][2][2] = new KeyCodeStruct(0x4e);
+            KeyMap[1][2][2][3] = new KeyCodeStruct(0xbd);
+            KeyMap[1][2][2][4] = new KeyCodeStruct(0x31);
 
             //sinh
-            KeyMap[1][3][0] = new int[4];
-            KeyMap[1][3][0][0] = 0x53;
-            KeyMap[1][3][0][1] = 0x49;
-            KeyMap[1][3][0][2] = 0x4e;
-            KeyMap[1][3][0][3] = 0x48;
+            KeyMap[1][3][0] = new KeyCodeStruct[4];
+            KeyMap[1][3][0][0] = new KeyCodeStruct(0x53);
+            KeyMap[1][3][0][1] = new KeyCodeStruct(0x49);
+            KeyMap[1][3][0][2] = new KeyCodeStruct(0x4e);
+            KeyMap[1][3][0][3] = new KeyCodeStruct(0x48);
             //cosh
-            KeyMap[1][3][1] = new int[4];
-            KeyMap[1][3][1][0] = 0x43;
-            KeyMap[1][3][1][1] = 0x4f;
-            KeyMap[1][3][1][2] = 0x53;
-            KeyMap[1][3][1][3] = 0x48;
+            KeyMap[1][3][1] = new KeyCodeStruct[4];
+            KeyMap[1][3][1][0] = new KeyCodeStruct(0x43);
+            KeyMap[1][3][1][1] = new KeyCodeStruct(0x4f);
+            KeyMap[1][3][1][2] = new KeyCodeStruct(0x53);
+            KeyMap[1][3][1][3] = new KeyCodeStruct(0x48);
             //tanh
-            KeyMap[1][3][2] = new int[4];
-            KeyMap[1][3][2][0] = 0x54;
-            KeyMap[1][3][2][1] = 0x41;
-            KeyMap[1][3][2][2] = 0x4e;
-            KeyMap[1][3][2][3] = 0x48;
+            KeyMap[1][3][2] = new KeyCodeStruct[4];
+            KeyMap[1][3][2][0] = new KeyCodeStruct(0x54);
+            KeyMap[1][3][2][1] = new KeyCodeStruct(0x41);
+            KeyMap[1][3][2][2] = new KeyCodeStruct(0x4e);
+            KeyMap[1][3][2][3] = new KeyCodeStruct(0x48);
 
-            //KeyMap[1][3][3][0] = 115;
             //(
-            KeyMap[1][4][0][0] = 0x39;
+            KeyMap[1][4][0][0] = new KeyCodeStruct(0x39, true, false, false);
             //)
-            KeyMap[1][4][1][0] = 0x30;
-            //KeyMap[1][4][2][0] = 110;
-            //KeyMap[1][4][3][0] = 13;
+            KeyMap[1][4][1][0] = new KeyCodeStruct(0x30);
+            KeyMap[1][4][1][0] = new KeyCodeStruct(0x30, true, false, false);
 
             //{
-            KeyMap[1][5][0][0] = 0xdb;
+            KeyMap[1][5][0][0] = new KeyCodeStruct(0xdb, true, false, false);
             //}
-            KeyMap[1][5][1][0] = 0xdd;
-            //KeyMap[1][5][2][0] = 114;
-            //KeyMap[1][5][3][0] = 115;
+            KeyMap[1][5][1][0] = new KeyCodeStruct(0xdd, true, false, false);
         }
     }
 
@@ -395,7 +397,7 @@ public class ManageKey {
                 for (int j = 0; j < col; j++) {
                     if(KeyLabel[k][i][j] != null)
                         continue;
-                    if(KeyMap[k][i][j][0] == 0)
+                    if(KeyMap[k][i][j][0] == null)
                     {
                         KeyLabel[k][i][j] = "";
                         continue;
@@ -404,9 +406,9 @@ public class ManageKey {
                     if (KeyMap[k][i][j].length > 1)
                         KeyLabel[k][i][j] = "매크로";
                     else {
-                        String value = KeyCode.get(KeyMap[k][i][j][0]);
+                        String value = KeyCode.get(KeyMap[k][i][j][0].KeyCode);
                         if(value == null)
-                            value = KeyEvent.keyCodeToString(KeyMap[k][i][j][0]);
+                            value = KeyEvent.keyCodeToString(KeyMap[k][i][j][0].KeyCode);
                         KeyLabel[k][i][j] = value;
                     }
                 }

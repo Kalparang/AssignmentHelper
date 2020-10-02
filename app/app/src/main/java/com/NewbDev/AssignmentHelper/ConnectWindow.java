@@ -4,12 +4,18 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.charset.StandardCharsets;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -25,6 +31,24 @@ public class ConnectWindow {
     private Thread socketThread;
 
     private static boolean IsConnected = false;
+
+    public static byte[] toByteArray (Object obj)
+    {
+        byte[] bytes = null;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(obj);
+            oos.flush();
+            oos.close();
+            bos.close();
+            bytes = bos.toByteArray();
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return bytes;
+    }
 
     public void StartServer()
     {
@@ -67,10 +91,8 @@ public class ConnectWindow {
         StartServer();
     }
 
-    public void SendData(String msg)
+    public void SendData(KeyCodeStruct msg[])
     {
-        if(msg.charAt(0) == '0')
-            return;
         new Thread(new SocketThread(msg)).start();
     }
 
@@ -79,20 +101,43 @@ public class ConnectWindow {
     }
 
     class SocketThread implements Runnable {
-        private String parameter;
-        public SocketThread(String parameter){
+        private KeyCodeStruct parameter[];
+        public SocketThread(KeyCodeStruct parameter[]){
             this.parameter = parameter;
         }
 
         public void run(){
-            if(IsConnected) {
-                try {
-                    outputStream.writeUTF(parameter);
-                    outputStream.flush();
-                } catch (SocketException se) {
-                    disconnected();
-                } catch (Exception e) {
-                    e.printStackTrace();
+            synchronized (this) {
+                if (IsConnected) {
+                    try {
+//                        ByteBuffer byteBuffer = ByteBuffer.allocate(7);
+//                        byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+//
+//                        for(int i = 0; i < parameter.length; i++) {
+//                            byte byteCode[] = new byte[4];
+//                            byteCode[0] = (byte)(parameter[i].KeyCode);
+//                            byteCode[1] = (byte)(parameter[i].KeyCode >> 8);
+//                            byteCode[2] = (byte)(parameter[i].KeyCode >> 16);
+//                            byteCode[3] = (byte)(parameter[i].KeyCode >> 24);
+//
+//                            byteBuffer.put(parameter[i].IsShiftDown ? (byte)1 : (byte)0);
+//                            byteBuffer.put(parameter[i].IsCtrlDown ? (byte)1 : (byte)0);
+//                            byteBuffer.put(parameter[i].IsAltDown ? (byte)1 : (byte)0);
+//                            byteBuffer.put(byteCode);
+//                        }
+//                        outputStream.write(byteBuffer.array());
+                        String test = "Home홈";
+                        byte[] testbyte = test.getBytes("utf-8");
+                        ByteBuffer byteBuffer = ByteBuffer.allocate(testbyte.length);
+                        byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+                        byteBuffer.put(testbyte);
+                        outputStream.write(byteBuffer.array());
+                        outputStream.flush();
+                    } catch (SocketException se) {
+                        disconnected();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -102,13 +147,50 @@ public class ConnectWindow {
         @Override
         public void run() {
             try {
-                serverSocket = new ServerSocket(9000);
-                socket = serverSocket.accept();
-                //socket = new Socket("127.0.0.1", 9000);
+                while(true) {
+                    serverSocket = new ServerSocket(9000);
+                    socket = serverSocket.accept();
+                    //socket = new Socket("127.0.0.1", 9000);
 
-                inputStream = new DataInputStream(socket.getInputStream());
-                outputStream = new DataOutputStream(socket.getOutputStream());
+                    inputStream = new DataInputStream(socket.getInputStream());
+                    outputStream = new DataOutputStream(socket.getOutputStream());
 
+                    //socket.setSoTimeout(2000);
+
+                    String ConnectCheck = "AssignmentHelperApplication";
+                    byte Connectbyte[] = ConnectCheck.getBytes("utf-8");
+                    ByteBuffer byteBuffer = ByteBuffer.allocate(Connectbyte.length);
+                    byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+                    byteBuffer.put(Connectbyte);
+
+                    outputStream.write(byteBuffer.array(), 0, byteBuffer.array().length);
+                    outputStream.flush();
+
+                    Thread.sleep(500);
+
+                    ConnectCheck = "AssistKeyPad";
+                    Connectbyte = new byte[ConnectCheck.getBytes("utf-8").length];
+
+                    inputStream.read(Connectbyte, 0, Connectbyte.length);
+                    byteBuffer.clear();
+                    byteBuffer = ByteBuffer.allocate(Connectbyte.length);
+                    byteBuffer.put(Connectbyte);
+                    byteBuffer.order(ByteOrder.BIG_ENDIAN);
+
+                    String inputString = new String(byteBuffer.array(), StandardCharsets.UTF_8);
+
+                    if(ConnectCheck.equals(inputString))
+                    {
+                        break;
+                    }
+
+                    serverSocket.close();
+                    socket.close();
+                    Thread.sleep(500);
+                    continue;
+                }
+
+                socket.setSoTimeout(0);
                 IsConnected = true;
 
                 ConnStat.setVisibility(View.INVISIBLE);

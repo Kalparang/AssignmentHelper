@@ -1,0 +1,15 @@
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\bin\Debug\PCClient.exe.config
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\bin\Debug\PCClient.exe
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\bin\Debug\PCClient.pdb
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\PCClient.csprojAssemblyReference.cache
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\MainWindow.g.cs
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\App.g.cs
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\PCClient_MarkupCompile.cache
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\PCClient_MarkupCompile.lref
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\MainWindow.baml
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\PCClient.g.resources
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\PCClient.Properties.Resources.resources
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\PCClient.csproj.GenerateResource.cache
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\PCClient.csproj.CoreCompileInputs.cache
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\PCClient.exe
+D:\android\AssignmentHelper\AssignmentHelper\PCClient\obj\Debug\PCClient.pdb

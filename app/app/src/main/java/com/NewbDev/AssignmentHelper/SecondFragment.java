@@ -13,7 +13,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 public class SecondFragment extends Fragment {
 
-    private int KeyMap[][][];
+    private KeyCodeStruct KeyMap[][][];
     private static Button VBList[];
     ConnectWindow cw;
 
@@ -30,13 +30,10 @@ public class SecondFragment extends Fragment {
                 int row = Integer.parseInt(sp[2]) - 1;
                 int col = Integer.parseInt(sp[3]) - 1;
 
-                String output = String.valueOf(KeyMap[row][col][0]);
+                if(KeyMap[row][col][0].KeyCode == 0)
+                    return true;
 
-                for(int i = 1; i < KeyMap[row][col].length; i++)
-                    output = output + "," + String.valueOf(KeyMap[row][col][i]);
-
-                //Toast.makeText(getActivity(), output, Toast.LENGTH_SHORT).show();
-                cw.SendData(output);
+                cw.SendData(KeyMap[row][col]);
             }
 
             return true;

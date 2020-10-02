@@ -34,7 +34,7 @@ import javax.net.ssl.ManagerFactoryParameters;
 
 public class MainActivity extends AppCompatActivity {
     public static ManageKey mKey;
-    public static int KeyMap[][][][];
+    public static KeyCodeStruct KeyMap[][][][];
     public static HashMap<Integer, String> KeyCode;
 
     ConnectWindow cw;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         mKey.Init();
         KeyCode = mKey.getKeyCode();
 
-        KeyMap = new int[2][][][];
+        KeyMap = new KeyCodeStruct[2][][][];
 
         KeyMap[0] = mKey.getKeyMap(1);
         KeyMap[1] = mKey.getKeyMap(2);
