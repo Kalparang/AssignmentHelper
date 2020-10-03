@@ -1,3 +1,4 @@
 
 *.apk
 app/app/release/output-metadata.json
+*.aab
