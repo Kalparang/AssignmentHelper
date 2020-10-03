@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace PCClient
 {
@@ -28,7 +29,8 @@ namespace PCClient
         {
             InitializeComponent();
 
-            AsynchronousClient.StartClient();
+            if (ADBManage.ADBStart(this))
+                AsynchronousClient.StartClient(this);
         }
     }
 }

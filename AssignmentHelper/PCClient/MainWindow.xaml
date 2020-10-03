@@ -5,13 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PCClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="300">
+        Title="MainWindow" Height="450" Width="400">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="30,50,0,0" VerticalAlignment="Top" Width="40" Height="40"/>
-        <Button Content="Button2" Margin="80,50,173.6,0" VerticalAlignment="Top" Height="40"/>
-        <Button Content="Button3" HorizontalAlignment="Left" Margin="130,50,0,0" VerticalAlignment="Top" Width="40" Height="40"/>
-        <Button Content="Button4" HorizontalAlignment="Left" Margin="180,50,0,0" VerticalAlignment="Top" Width="40" Height="40"/>
-        <Button Content="Button4" HorizontalAlignment="Left" Margin="230,50,0,0" VerticalAlignment="Top" Width="40" Height="40"/>
-
+        <Label x:Name="Label_Status" Content="로딩중" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

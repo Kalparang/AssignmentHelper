@@ -15,7 +15,9 @@ namespace PCClient
     {
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            
+            AsynchronousClient.socketThread.Abort();
+            AsynchronousClient.socketThread.Join();
+            ADBManage.ADBEnd();
         }
     }
 }

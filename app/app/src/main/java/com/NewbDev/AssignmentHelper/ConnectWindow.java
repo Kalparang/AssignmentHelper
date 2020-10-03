@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.ServerSocket;
@@ -110,28 +111,23 @@ public class ConnectWindow {
             synchronized (this) {
                 if (IsConnected) {
                     try {
-//                        ByteBuffer byteBuffer = ByteBuffer.allocate(7);
-//                        byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
-//
-//                        for(int i = 0; i < parameter.length; i++) {
-//                            byte byteCode[] = new byte[4];
-//                            byteCode[0] = (byte)(parameter[i].KeyCode);
-//                            byteCode[1] = (byte)(parameter[i].KeyCode >> 8);
-//                            byteCode[2] = (byte)(parameter[i].KeyCode >> 16);
-//                            byteCode[3] = (byte)(parameter[i].KeyCode >> 24);
-//
-//                            byteBuffer.put(parameter[i].IsShiftDown ? (byte)1 : (byte)0);
-//                            byteBuffer.put(parameter[i].IsCtrlDown ? (byte)1 : (byte)0);
-//                            byteBuffer.put(parameter[i].IsAltDown ? (byte)1 : (byte)0);
-//                            byteBuffer.put(byteCode);
-//                        }
-//                        outputStream.write(byteBuffer.array());
-                        String test = "Home홈";
-                        byte[] testbyte = test.getBytes("utf-8");
-                        ByteBuffer byteBuffer = ByteBuffer.allocate(testbyte.length);
-                        byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
-                        byteBuffer.put(testbyte);
-                        outputStream.write(byteBuffer.array());
+                        for(int i = 0; i < parameter.length; i++) {
+                            ByteBuffer byteBuffer = ByteBuffer.allocate(7);
+                            byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+
+                            byte byteCode[] = new byte[4];
+                            byteCode[0] = (byte)(parameter[i].KeyCode);
+                            byteCode[1] = (byte)(parameter[i].KeyCode >> 8);
+                            byteCode[2] = (byte)(parameter[i].KeyCode >> 16);
+                            byteCode[3] = (byte)(parameter[i].KeyCode >> 24);
+
+                            byteBuffer.put(parameter[i].IsShiftDown ? (byte)1 : (byte)0);
+                            byteBuffer.put(parameter[i].IsCtrlDown ? (byte)1 : (byte)0);
+                            byteBuffer.put(parameter[i].IsAltDown ? (byte)1 : (byte)0);
+                            byteBuffer.put(byteCode);
+
+                            outputStream.write(byteBuffer.array());
+                        }
                         outputStream.flush();
                     } catch (SocketException se) {
                         disconnected();
@@ -144,53 +140,67 @@ public class ConnectWindow {
     }
 
     class ServerThread extends Thread {
+        private boolean VerifyConnect(DataInputStream inputStream, DataOutputStream outputStream){
+            try {
+                String ConnectCheck = "AssignmentHelperApplication";
+                byte Connectbyte[] = ConnectCheck.getBytes("utf-8");
+                ByteBuffer byteBuffer = ByteBuffer.allocate(Connectbyte.length);
+                byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+                byteBuffer.put(Connectbyte);
+
+                outputStream.write(byteBuffer.array(), 0, byteBuffer.array().length);
+                outputStream.flush();
+
+                Thread.sleep(500);
+
+                ConnectCheck = "AssistKeyPad";
+                Connectbyte = new byte[ConnectCheck.getBytes("utf-8").length];
+
+                inputStream.read(Connectbyte, 0, Connectbyte.length);
+                byteBuffer.clear();
+                byteBuffer = ByteBuffer.allocate(Connectbyte.length);
+                byteBuffer.put(Connectbyte);
+                byteBuffer.order(ByteOrder.BIG_ENDIAN);
+
+                String inputString = new String(byteBuffer.array(), StandardCharsets.UTF_8);
+
+                if (ConnectCheck.equals(inputString)) {
+                    return true;
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
         @Override
         public void run() {
             try {
-                while(true) {
+                //while(true)
+                {
                     serverSocket = new ServerSocket(9000);
+
                     socket = serverSocket.accept();
+
+                    socket.setReceiveBufferSize(256);
+                    socket.setSendBufferSize(256);
                     //socket = new Socket("127.0.0.1", 9000);
 
                     inputStream = new DataInputStream(socket.getInputStream());
                     outputStream = new DataOutputStream(socket.getOutputStream());
 
                     //socket.setSoTimeout(2000);
-
-                    String ConnectCheck = "AssignmentHelperApplication";
-                    byte Connectbyte[] = ConnectCheck.getBytes("utf-8");
-                    ByteBuffer byteBuffer = ByteBuffer.allocate(Connectbyte.length);
-                    byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
-                    byteBuffer.put(Connectbyte);
-
-                    outputStream.write(byteBuffer.array(), 0, byteBuffer.array().length);
-                    outputStream.flush();
-
-                    Thread.sleep(500);
-
-                    ConnectCheck = "AssistKeyPad";
-                    Connectbyte = new byte[ConnectCheck.getBytes("utf-8").length];
-
-                    inputStream.read(Connectbyte, 0, Connectbyte.length);
-                    byteBuffer.clear();
-                    byteBuffer = ByteBuffer.allocate(Connectbyte.length);
-                    byteBuffer.put(Connectbyte);
-                    byteBuffer.order(ByteOrder.BIG_ENDIAN);
-
-                    String inputString = new String(byteBuffer.array(), StandardCharsets.UTF_8);
-
-                    if(ConnectCheck.equals(inputString))
-                    {
-                        break;
-                    }
-
-                    serverSocket.close();
-                    socket.close();
-                    Thread.sleep(500);
-                    continue;
+//                    if(VerifyConnect(inputStream, outputStream))
+//                        break;
+//
+//                    serverSocket.close();
+//                    socket.close();
+//                    Thread.sleep(500);
+//                    continue;
                 }
 
-                socket.setSoTimeout(0);
+                //socket.setSoTimeout(0);
                 IsConnected = true;
 
                 ConnStat.setVisibility(View.INVISIBLE);

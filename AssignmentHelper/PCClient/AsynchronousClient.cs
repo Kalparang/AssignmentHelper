@@ -1,10 +1,14 @@
-﻿using System;
+﻿using PCClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Windows.Threading;
 
 // State object for receiving data from remote device.  
 public class StateObject
@@ -35,13 +39,18 @@ public static class AsynchronousClient
     // The response from the remote device.  
     private static String response = String.Empty;
 
-    static Thread socketThread;
+    private static List<byte> Savebyte = new List<byte>();
+
+    public static Thread socketThread;
     static Socket client;
+
+    static MainWindow mw;
 
     public static bool IsExit = false;
 
-    public static void StartClient()
+    public static void StartClient(MainWindow mainwindow)
     {
+        mw = mainwindow;
         socketThread = new Thread(new ThreadStart(SocketThread));
         socketThread.Start();
     }
@@ -51,26 +60,38 @@ public static class AsynchronousClient
         // Connect to a remote device.  
         try
         {
-            InitSocket();
+            System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() => mw.Label_Status.Content = "연결 대기 중")).Wait();
 
-            // Receive the response from the remote device.  
-            Receive(client);
-            receiveDone.WaitOne();
+            while (true)
+            {
+                InitSocket();
 
-            Console.WriteLine("End Receive");
+                System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() => mw.Label_Status.Content = "연결되었습니다.")).Wait() ;
 
-            // Write the response to the console.  
-            //Console.WriteLine("Response received : {0}", response);
+                // Receive the response from the remote device.  
+                Receive(client);
+                receiveDone.WaitOne();
 
-            // Release the socket.  
-            //client.Shutdown(SocketShutdown.Both);
-            //client.Close();
+                // Release the socket.  
+                client.Shutdown(SocketShutdown.Both);
+                client.Close();
+
+                connectDone.Reset();
+                receiveDone.Reset();
+
+                System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() => mw.Label_Status.Content = "연결이 끊어졌습니다. 재연결 중")).Wait();
+
+                Thread.Sleep(1000);
+            }
+        }
+        catch(ThreadAbortException tae)
+        {
 
         }
         catch (Exception e)
         {
             MessageBox.Show("SocketThread Error\n" + e.ToString());
-            Application.Exit();
+            Environment.Exit(0);
         }
     }
 
@@ -91,13 +112,59 @@ public static class AsynchronousClient
                 new AsyncCallback(ConnectCallback), client);
             connectDone.WaitOne();
 
-            client.BeginDisconnect(true, new AsyncCallback(DisconnectCallback), client);
+            //VerifyConnect(client);
+
+            //client.BeginDisconnect(true, new AsyncCallback(DisconnectCallback), client);
         }
         catch (Exception e)
         {
             MessageBox.Show("InitSocket Error\n" + e.ToString());
-            Application.Exit();
+            Environment.Exit(0);
         }
+    }
+
+    private static void VerifyConnect(Socket client)
+    {
+        string ConnectCheck = "AssignmentHelperApplication";
+        byte[] Connectbyte = new byte[Encoding.UTF8.GetBytes(ConnectCheck).Length];
+
+        client.Receive(Connectbyte, Connectbyte.Length, SocketFlags.None);
+
+        if (Connectbyte[0] == 0)
+        {
+            Thread.Sleep(1000);
+
+            socketThread.Abort();
+
+            socketThread = new Thread(new ThreadStart(SocketThread));
+            socketThread.Start();
+
+            return;
+        }
+
+        if (ConnectCheck != Encoding.UTF8.GetString(Connectbyte))
+        {
+            connectDone.Reset();
+            client.Shutdown(SocketShutdown.Both);
+            client.Close();
+
+            Thread.Sleep(500);
+
+            socketThread.Abort();
+
+            socketThread = new Thread(new ThreadStart(SocketThread));
+            socketThread.Start();
+
+            return;
+        }
+
+        ConnectCheck = "AssistKeyPad";
+        Connectbyte = Encoding.UTF8.GetBytes(ConnectCheck);
+
+        client.Send(Connectbyte, Connectbyte.Length, SocketFlags.None);
+
+        Thread.Sleep(500);
+
     }
 
     private static void ConnectCallback(IAsyncResult ar)
@@ -113,53 +180,13 @@ public static class AsynchronousClient
             Console.WriteLine("Socket connected to {0}",
                 client.RemoteEndPoint.ToString());
 
-            string ConnectCheck = "AssignmentHelperApplication";
-            byte[] Connectbyte = new byte[Encoding.UTF8.GetBytes(ConnectCheck).Length];
-            
-            client.Receive(Connectbyte, Connectbyte.Length, SocketFlags.None);
-
-            if(Connectbyte[0] == 0)
-            {
-                Thread.Sleep(1000);
-
-                socketThread.Abort();
-
-                socketThread = new Thread(new ThreadStart(SocketThread));
-                socketThread.Start();
-
-                return;
-            }
-
-            if (ConnectCheck != Encoding.UTF8.GetString(Connectbyte))
-            {
-                connectDone.Reset();
-                client.Shutdown(SocketShutdown.Both);
-                client.Close();
-
-                Thread.Sleep(500);
-
-                socketThread.Abort();
-
-                socketThread = new Thread(new ThreadStart(SocketThread));
-                socketThread.Start();
-
-                return;
-            }
-
-            ConnectCheck = "AssistKeyPad";
-            Connectbyte = Encoding.UTF8.GetBytes(ConnectCheck);
-
-            client.Send(Connectbyte, Connectbyte.Length, SocketFlags.None);
-
-            Thread.Sleep(500);
-
             // Signal that the connection has been made.  
             connectDone.Set();
         }
         catch (Exception e)
         {
-            MessageBox.Show("ConnectCallback Error\n" + e.ToString());
-            Application.Exit();
+            MessageBox.Show(null,"ConnectCallback Error\n" + e.ToString(), "Error", MessageBoxButtons.OK);
+            Environment.Exit(0);
         }
     }
 
@@ -197,23 +224,61 @@ public static class AsynchronousClient
             // from the asynchronous state object.  
             StateObject state = (StateObject)ar.AsyncState;
             Socket client = state.workSocket;
-
+            
             // Read data from the remote device.  
             int bytesRead = client.EndReceive(ar);
 
             if (bytesRead > 0)
             {
-                // There might be more data, so store the data received so far.  
-                state.sb.Append(Encoding.UTF8.GetString(state.buffer, 0, bytesRead));
-                Console.WriteLine(Encoding.UTF8.GetString(state.buffer, 0, bytesRead));
-                //bool IsShiftDown = state.buffer[0] == 1 ? true : false;
-                //bool IsCtrlDown = state.buffer[1] == 1 ? true : false;
-                //bool IsAltDown = state.buffer[2] == 1 ? true : false ;
+                if(bytesRead % 7 != 0)
+                {
+                    if (bytesRead + Savebyte.Count % 7 != 0)
+                    {
+                        for (int i = 0; i < bytesRead; i++)
+                            Savebyte.Add(state.buffer[i]);
 
-                //int KeyCode = state.buffer[3];
+                        client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                            new AsyncCallback(ReceiveCallback), state);
 
-                //Keys k = (Keys)KeyCode;
-                //Console.WriteLine(k.ToString());
+                        return;
+                    }
+
+                    Savebyte.AddRange(state.buffer);
+                    state.buffer = new byte[Savebyte.Count];
+                    state.buffer = Savebyte.ToArray();
+                    bytesRead = state.buffer.Length * 7;
+                }
+                else
+                {
+                    KeyboardInput ki = new KeyboardInput();
+
+                    //Console.WriteLine(Encoding.UTF8.GetString(state.buffer, 0, bytesRead));
+                    bool IsShiftDown = state.buffer[0] == 1 ? true : false;
+                    bool IsCtrlDown = state.buffer[1] == 1 ? true : false;
+                    bool IsAltDown = state.buffer[2] == 1 ? true : false;
+
+                    int KeyCode = BitConverter.ToInt32(state.buffer, 3);
+
+                    ki.ReadyKey(true);
+                    ki.Presskey(KeyCode, IsShiftDown);
+
+                    for (int i = 1; i < (int)(bytesRead / 7); i++)
+                    {
+                        // There might be more data, so store the data received so far.  
+                        //state.sb.Append(Encoding.UTF8.GetString(state.buffer, 0, bytesRead));
+                        //Console.WriteLine(Encoding.UTF8.GetString(state.buffer, 0, bytesRead));
+                        IsShiftDown = state.buffer[i * 7] == 1 ? true : false;
+                        IsCtrlDown = state.buffer[i * 7 + 1] == 1 ? true : false;
+                        IsAltDown = state.buffer[i * 7 + 2] == 1 ? true : false;
+
+                        KeyCode = BitConverter.ToInt32(state.buffer, i * 7 + 3);
+
+                        ki.Presskey(KeyCode, IsShiftDown);
+                    }
+                    ki.ReadyKey(false);
+                }
+                
+                state.buffer = new byte[StateObject.BufferSize];
 
                 // Get the rest of the data.  
                 client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,

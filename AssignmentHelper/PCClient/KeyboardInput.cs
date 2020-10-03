@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Forms;
 
-public static class KeyboardInput
+public class KeyboardInput
 {
     [DllImport("user32.dll")]
     private static extern void keybd_event(uint vk, uint scan, uint flags, uint extraInfo);
@@ -21,7 +23,9 @@ public static class KeyboardInput
 
     private const int WM_IME_CONTROL = 643;
     private const int KEYEVENTF_KEYUP = 0x0002;
-    
+
+    bool ChangeIME = false;
+
     public enum KeyCode
     {
         VK_SHIFT = 0x10,
@@ -30,7 +34,15 @@ public static class KeyboardInput
         VK_HANGEUL = 0x15,
     }
 
-    private static bool IsEnglish()
+    public struct VK
+    {
+        public bool IsShiftDown;
+        public bool IsCtrlDown;
+        public bool IsAltDown;
+        public int KeyCode;
+    }
+
+    private bool IsEnglish()
     {
         IntPtr hwnd = GetForegroundWindow();
         IntPtr hime = ImmGetDefaultIMEWnd(hwnd);
@@ -42,21 +54,13 @@ public static class KeyboardInput
             return true;
     }
 
-    public static void Presskey(KeyCode vk, bool shift = false)
+    public void Presskey(KeyCode vk, bool shift = false)
     {
         Presskey((int)vk, shift);
     }
 
-    public static void Presskey(int vk, bool shift = false)
+    public void Presskey(int vk, bool shift = false)
     {
-        bool ChangeIME = !IsEnglish();
-
-        if (ChangeIME)
-        {
-            keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), 0, 0);
-            keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), KEYEVENTF_KEYUP, 0);
-        }
-
         if (shift)
             keybd_event((uint)KeyCode.VK_SHIFT, MapVirtualKey((int)KeyCode.VK_SHIFT, 0), 0, 0);
 
@@ -65,11 +69,34 @@ public static class KeyboardInput
 
         if (shift)
             keybd_event((uint)KeyCode.VK_SHIFT, MapVirtualKey((int)KeyCode.VK_SHIFT, 0), KEYEVENTF_KEYUP, 0);
+    }
 
-        if (ChangeIME)
+    public void ReadyKey(bool IsStart)
+    {
+        if (IsStart)
         {
-            keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), 0, 0);
-            keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), KEYEVENTF_KEYUP, 0);
+            ChangeIME = !IsEnglish();
+
+            if (ChangeIME)
+            {
+                keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), 0, 0);
+                keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), KEYEVENTF_KEYUP, 0);
+
+                Thread.Sleep(100);
+            }
         }
+        else
+        {
+            if(ChangeIME)
+            {
+                if (ChangeIME)
+                {
+                    keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), 0, 0);
+                    keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), KEYEVENTF_KEYUP, 0);
+
+                    Thread.Sleep(100);
+                }
+            }
+        }    
     }
 }

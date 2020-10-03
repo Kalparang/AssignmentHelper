@@ -17,13 +17,10 @@ public class SecondFragment extends Fragment {
     private static Button VBList[];
     ConnectWindow cw;
 
-    private View.OnTouchListener VBListener = new View.OnTouchListener() {
+    private View.OnClickListener VBListener = new View.OnClickListener() {
         @Override
-        public boolean onTouch(View v, MotionEvent event) {
+        public void onClick(View v) {
             String sp[] = ((String)v.getTag()).split("_");
-            boolean IsKeyDown = (event.getAction() == MotionEvent.ACTION_DOWN);
-            if(!IsKeyDown)
-                return false;
             if(sp.length == 4)
             {
                 int index = Integer.parseInt(sp[1]) - 1;
@@ -31,12 +28,10 @@ public class SecondFragment extends Fragment {
                 int col = Integer.parseInt(sp[3]) - 1;
 
                 if(KeyMap[row][col][0].KeyCode == 0)
-                    return true;
+                    return;
 
                 cw.SendData(KeyMap[row][col]);
             }
-
-            return true;
         }
     };
 
@@ -88,33 +83,8 @@ public class SecondFragment extends Fragment {
                 VBList[index] = view.findViewWithTag("VB_2_" + (i + 1) + "_" + (j + 1));
 
                 VBList[index].setText(KeyLabel[i][j]);
-                VBList[index].setOnTouchListener(VBListener);
+                VBList[index].setOnClickListener(VBListener);
             }
         }
-
-//        view.findViewById(R.id.VB_2_1_1).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_1_2).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_1_3).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_1_4).setOnTouchListener(VBListener);
-//
-//        view.findViewById(R.id.VB_2_2_1).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_2_2).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_2_3).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_2_4).setOnTouchListener(VBListener);
-//
-//        view.findViewById(R.id.VB_2_3_1).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_3_2).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_3_3).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_3_4).setOnTouchListener(VBListener);
-//
-//        view.findViewById(R.id.VB_2_4_1).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_4_2).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_4_3).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_4_4).setOnTouchListener(VBListener);
-//
-//        view.findViewById(R.id.VB_2_5_1).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_5_2).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_5_3).setOnTouchListener(VBListener);
-//        view.findViewById(R.id.VB_2_5_4).setOnTouchListener(VBListener);
     }
 }
