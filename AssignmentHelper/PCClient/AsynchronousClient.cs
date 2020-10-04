@@ -64,13 +64,14 @@ public static class AsynchronousClient
 
             while (true)
             {
-                InitSocket();
+                if (InitSocket())
+                {
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() => mw.Label_Status.Content = "연결되었습니다.")).Wait();
 
-                System.Windows.Application.Current.Dispatcher.BeginInvoke(new Action(() => mw.Label_Status.Content = "연결되었습니다.")).Wait() ;
-
-                // Receive the response from the remote device.  
-                Receive(client);
-                receiveDone.WaitOne();
+                    // Receive the response from the remote device.  
+                    Receive(client);
+                    receiveDone.WaitOne();
+                }
 
                 // Release the socket.  
                 client.Shutdown(SocketShutdown.Both);
@@ -95,8 +96,10 @@ public static class AsynchronousClient
         }
     }
 
-    public static void InitSocket()
+    public static bool InitSocket()
     {
+        bool result = false;
+
         try
         {
             // Establish the remote endpoint for the socket.  
@@ -112,59 +115,55 @@ public static class AsynchronousClient
                 new AsyncCallback(ConnectCallback), client);
             connectDone.WaitOne();
 
-            //VerifyConnect(client);
-
-            //client.BeginDisconnect(true, new AsyncCallback(DisconnectCallback), client);
+            result = VerifyConnect(client);
         }
         catch (Exception e)
         {
             MessageBox.Show("InitSocket Error\n" + e.ToString());
             Environment.Exit(0);
         }
+
+        return result;
     }
 
-    private static void VerifyConnect(Socket client)
+    private static bool VerifyConnect(Socket client)
     {
         string ConnectCheck = "AssignmentHelperApplication";
         byte[] Connectbyte = new byte[Encoding.UTF8.GetBytes(ConnectCheck).Length];
 
-        client.Receive(Connectbyte, Connectbyte.Length, SocketFlags.None);
+        client.ReceiveTimeout = 2000;
+        client.SendTimeout = 2000;
 
-        if (Connectbyte[0] == 0)
+        try
         {
-            Thread.Sleep(1000);
+            client.Receive(Connectbyte, Connectbyte.Length, SocketFlags.None);
 
-            socketThread.Abort();
+            if (Connectbyte[0] == 0)
+            {
+                return false;
+            }
 
-            socketThread = new Thread(new ThreadStart(SocketThread));
-            socketThread.Start();
+            if (ConnectCheck != Encoding.UTF8.GetString(Connectbyte))
+            {
+                return false;
+            }
 
-            return;
+            ConnectCheck = "AssistKeyPad";
+            Connectbyte = Encoding.UTF8.GetBytes(ConnectCheck);
+
+            client.Send(Connectbyte, Connectbyte.Length, SocketFlags.None);
+        }
+        catch(SocketException se)
+        {
+            return false;
         }
 
-        if (ConnectCheck != Encoding.UTF8.GetString(Connectbyte))
-        {
-            connectDone.Reset();
-            client.Shutdown(SocketShutdown.Both);
-            client.Close();
-
-            Thread.Sleep(500);
-
-            socketThread.Abort();
-
-            socketThread = new Thread(new ThreadStart(SocketThread));
-            socketThread.Start();
-
-            return;
-        }
-
-        ConnectCheck = "AssistKeyPad";
-        Connectbyte = Encoding.UTF8.GetBytes(ConnectCheck);
-
-        client.Send(Connectbyte, Connectbyte.Length, SocketFlags.None);
+        client.ReceiveTimeout = 0;
+        client.SendTimeout = 0;
 
         Thread.Sleep(500);
 
+        return true;
     }
 
     private static void ConnectCallback(IAsyncResult ar)

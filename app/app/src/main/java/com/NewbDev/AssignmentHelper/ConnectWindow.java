@@ -165,6 +165,7 @@ public class ConnectWindow {
                 String inputString = new String(byteBuffer.array(), StandardCharsets.UTF_8);
 
                 if (ConnectCheck.equals(inputString)) {
+                    Thread.sleep(500);
                     return true;
                 }
             }
@@ -177,7 +178,7 @@ public class ConnectWindow {
         @Override
         public void run() {
             try {
-                //while(true)
+                while(true)
                 {
                     serverSocket = new ServerSocket(9000);
 
@@ -185,22 +186,23 @@ public class ConnectWindow {
 
                     socket.setReceiveBufferSize(256);
                     socket.setSendBufferSize(256);
-                    //socket = new Socket("127.0.0.1", 9000);
 
                     inputStream = new DataInputStream(socket.getInputStream());
                     outputStream = new DataOutputStream(socket.getOutputStream());
 
-                    //socket.setSoTimeout(2000);
-//                    if(VerifyConnect(inputStream, outputStream))
-//                        break;
-//
-//                    serverSocket.close();
-//                    socket.close();
-//                    Thread.sleep(500);
-//                    continue;
+                    socket.setSoTimeout(2000);
+
+                    if(VerifyConnect(inputStream, outputStream))
+                        break;
+
+                    serverSocket.close();
+                    socket.close();
+                    Thread.sleep(1000);
+                    continue;
                 }
 
-                //socket.setSoTimeout(0);
+                socket.setSoTimeout(0);
+
                 IsConnected = true;
 
                 ConnStat.setVisibility(View.INVISIBLE);
