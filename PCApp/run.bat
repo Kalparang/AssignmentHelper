@@ -1,2 +1,0 @@
-java PCClient.java
-pause
