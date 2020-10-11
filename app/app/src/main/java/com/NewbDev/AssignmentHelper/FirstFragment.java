@@ -2,19 +2,18 @@ package com.NewbDev.AssignmentHelper;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 public class FirstFragment extends Fragment {
 
     private KeyCodeStruct KeyMap[][][];
     private static Button VBList[];
+    private int PageNum;
     ConnectWindow cw;
 
     private View.OnClickListener VBListener = new View.OnClickListener() {
@@ -22,12 +21,13 @@ public class FirstFragment extends Fragment {
         public void onClick(View v) {
             String sp[] = ((String)v.getTag()).split("_");
 
-            if(sp.length == 4)
+            if(sp.length == 3)
             {
-                int index = Integer.parseInt(sp[1]) - 1;
-                int row = Integer.parseInt(sp[2]) - 1;
-                int col = Integer.parseInt(sp[3]) - 1;
+                int row = Integer.parseInt(sp[1]) - 1;
+                int col = Integer.parseInt(sp[2]) - 1;
 
+                if(KeyMap[row][col][0] == null)
+                    return;
                 if(KeyMap[row][col][0].KeyCode == 0)
                     return;
 
@@ -51,6 +51,7 @@ public class FirstFragment extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        PageNum = 1;
         InitButton(view);
         cw = new ConnectWindow();
 
@@ -59,8 +60,15 @@ public class FirstFragment extends Fragment {
         view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+//                NavHostFragment.findNavController(FirstFragment.this)
+//                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                if(PageNum == 1) {
+                    PageNum = 2;
+                    ChangePage(view, PageNum);
+                }
+                else
+                    PageNum = 1;
+                    ChangePage(view, PageNum);
             }
         });
     }
@@ -73,19 +81,41 @@ public class FirstFragment extends Fragment {
         String KeyLabel[][] = mKey.getKeyLabel(1);
         VBList = new Button[mKey.row * mKey.col];
 
-        for(int i = 0; i < mKey.row; i++)
+        for(int i = 0; i < ManageKey.row; i++)
         {
-            for(int j = 0; j < mKey.col; j++)
+            for(int j = 0; j < ManageKey.col; j++)
             {
                 int index = j;
                 if(i > 0)
                     index += i * 4;
 
-                VBList[index] = view.findViewWithTag("VB_1_" + (i + 1) + "_" + (j + 1));
+                VBList[index] = view.findViewWithTag("VB_" + (i + 1) + "_" + (j + 1));
                 VBList[index].setText(KeyLabel[i][j]);
                 VBList[index].setOnClickListener(VBListener);
+                VBList[index].setClickable(false);
             }
         }
     }
 
+    private void ChangePage(View view, int pagenum) {
+        ButtonClickable(false);
+
+        ManageKey mKey = new ManageKey();
+        KeyMap = mKey.getKeyMap(pagenum);
+
+        String KeyLabel[][] = mKey.getKeyLabel(pagenum);
+
+        for (int i = 0; i < ManageKey.row; i++) {
+            for (int j = 0; j < ManageKey.col; j++) {
+                int index = j;
+                if(i > 0)
+                    index += i * 4;
+
+                VBList[index].setText(KeyLabel[i][j]);
+            }
+        }
+
+        if(ConnectWindow.IsConnected)
+            ButtonClickable(true);
+    }
 }

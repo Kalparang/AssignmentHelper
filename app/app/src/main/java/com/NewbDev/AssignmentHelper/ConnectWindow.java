@@ -8,17 +8,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
-
-import static android.app.PendingIntent.getActivity;
 
 public class ConnectWindow {
     private static TextView ConnStat;
@@ -31,7 +27,7 @@ public class ConnectWindow {
     private ServerThread serverThread;
     private Thread socketThread;
 
-    private static boolean IsConnected = false;
+    public static boolean IsConnected = false;
 
     public static byte[] toByteArray (Object obj)
     {
@@ -72,6 +68,7 @@ public class ConnectWindow {
     private void disconnected()
     {
         IsConnected = false;
+        FirstFragment.ButtonClickable(false);
 
         try {
             socket.close();
@@ -81,7 +78,6 @@ public class ConnectWindow {
         {
             e.printStackTrace();
         }
-        FirstFragment.ButtonClickable(false);
 
         handler.post(new Runnable() {
             public void run() {

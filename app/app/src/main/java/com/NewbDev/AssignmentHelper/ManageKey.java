@@ -227,7 +227,7 @@ public class ManageKey {
             KeyMap[0][3][0][0] = new KeyCodeStruct(0x61);
             KeyMap[0][3][1][0] = new KeyCodeStruct(0x62);
             KeyMap[0][3][2][0] = new KeyCodeStruct(0x63);
-            KeyMap[0][3][3][0] = new KeyCodeStruct(0x6C);
+            KeyMap[0][3][3][0] = new KeyCodeStruct(0x0D);
 
             KeyMap[0][4][0][0] = new KeyCodeStruct(0x60);
 
@@ -237,7 +237,7 @@ public class ManageKey {
             KeyMap[0][4][1][1] = new KeyCodeStruct(0x60);
 
             KeyMap[0][4][2][0] = new KeyCodeStruct(0x6E);
-            KeyMap[0][4][3][0] = new KeyCodeStruct(0x6C);
+            KeyMap[0][4][3][0] = new KeyCodeStruct(0x0D);
 
             KeyMap[0][5][0][0] = new KeyCodeStruct(0x4A);
 

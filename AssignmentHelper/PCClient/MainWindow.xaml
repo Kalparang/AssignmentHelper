@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PCClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="400">
+        Title="AssignmentHelper" Height="200" Width="400" ResizeMode="NoResize">
     <Grid>
-        <Label x:Name="Label_Status" Content="로딩중" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Label_Status" Content="로딩중" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
     </Grid>
 </Window>

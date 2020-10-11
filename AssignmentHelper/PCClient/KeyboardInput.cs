@@ -82,7 +82,7 @@ public class KeyboardInput
                 keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), 0, 0);
                 keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), KEYEVENTF_KEYUP, 0);
 
-                Thread.Sleep(100);
+                Thread.Sleep(50);
             }
         }
         else
@@ -94,7 +94,7 @@ public class KeyboardInput
                     keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), 0, 0);
                     keybd_event((uint)KeyCode.VK_HANGEUL, MapVirtualKey((int)KeyCode.VK_HANGEUL, 0), KEYEVENTF_KEYUP, 0);
 
-                    Thread.Sleep(100);
+                    Thread.Sleep(50);
                 }
             }
         }    

@@ -1,41 +1,26 @@
 package com.NewbDev.AssignmentHelper;
 
-
-
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.MotionEvent;
 import android.view.View;
 
-import android.os.Handler;
-import android.os.Message;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.util.Log;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.HashMap;
-
-import javax.net.ssl.ManagerFactoryParameters;
 
 public class MainActivity extends AppCompatActivity {
     public static ManageKey mKey;
     public static KeyCodeStruct KeyMap[][][][];
     public static HashMap<Integer, String> KeyCode;
+    public static View HelpButton;
 
     ConnectWindow cw;
 
@@ -85,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(getApplicationContext(), HelpPage.class);
+            startActivity(intent);
             return true;
         }
 
