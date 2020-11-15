@@ -25,6 +25,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="연결 대기 중..."
+        android:visibility="invisible"
         tools:layout_editor_absoluteX="164dp"
         tools:layout_editor_absoluteY="125dp" />
 

@@ -3,12 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/SelectFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.NewbDev.AssignmentHelper.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SelectFragment"
+            app:destination="@id/SelectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SelectFragment"
+        android:name="com.NewbDev.AssignmentHelper.SelectFragment"
+        android:label="@string/select_fragment_label"
+        tools:layout="@layout/fragment_select">
+
+        <action
+            android:id="@+id/action_SelectFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>

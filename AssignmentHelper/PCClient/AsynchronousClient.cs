@@ -257,9 +257,9 @@ public static class AsynchronousClient
                     bool IsAltDown = state.buffer[2] == 1 ? true : false;
 
                     int KeyCode = BitConverter.ToInt32(state.buffer, 3);
-
+                    
                     ki.ReadyKey(true);
-                    ki.Presskey(KeyCode, IsShiftDown);
+                    ki.Presskey(KeyCode, IsShiftDown, IsCtrlDown);
 
                     for (int i = 1; i < (int)(bytesRead / 7); i++)
                     {

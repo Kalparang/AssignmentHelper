@@ -95,6 +95,7 @@ public class ConnectWindow {
 
     public void setConnStat(TextView ConnStat){
         this.ConnStat = ConnStat;
+        this.ConnStat.setVisibility(View.VISIBLE);
     }
 
     class SocketThread implements Runnable {

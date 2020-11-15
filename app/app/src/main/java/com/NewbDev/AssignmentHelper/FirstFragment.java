@@ -1,13 +1,21 @@
 package com.NewbDev.AssignmentHelper;
 
+import android.content.Context;
+import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class FirstFragment extends Fragment {
 
@@ -15,6 +23,7 @@ public class FirstFragment extends Fragment {
     private static Button VBList[];
     private int PageNum;
     ConnectWindow cw;
+    private static Vibrator mVibe;
 
     private View.OnClickListener VBListener = new View.OnClickListener() {
         @Override
@@ -32,13 +41,19 @@ public class FirstFragment extends Fragment {
                     return;
 
                 cw.SendData(KeyMap[row][col]);
+
+                MainActivity.vibrator.vibrate(VibrationEffect.createOneShot(40, 30));
+                MainActivity.audioManager.playSoundEffect(SoundEffectConstants.CLICK);
             }
         }
     };
 
     public static void ButtonClickable(boolean able){
-        for(int i = 0; i < ManageKey.col * ManageKey.row; i++)
+        for(int i = 0; i < ManageKey.col * ManageKey.row; i++) {
+            if(VBList[i] == null)
+                continue;
             VBList[i].setClickable(able);
+        }
     }
 
     @Override
@@ -50,12 +65,23 @@ public class FirstFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_first, container, false);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        cw.StopServer();
+    }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        PageNum = 1;
+        PageNum = MainActivity.InitPageNum;
         InitButton(view);
         cw = new ConnectWindow();
 
         super.onViewCreated(view, savedInstanceState);
+
+        cw = new ConnectWindow();
+        cw.StartServer();
+
+        cw.setConnStat(MainActivity.ConnStat);
 
         view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,23 +102,26 @@ public class FirstFragment extends Fragment {
     private void InitButton(View view)
     {
         ManageKey mKey = new ManageKey();
-        KeyMap = mKey.getKeyMap(1);
+        KeyMap = mKey.getKeyMap(PageNum);
 
-        String KeyLabel[][] = mKey.getKeyLabel(1);
+        String KeyLabel[][] = mKey.getKeyLabel(PageNum);
         VBList = new Button[mKey.row * mKey.col];
 
         for(int i = 0; i < ManageKey.row; i++)
         {
             for(int j = 0; j < ManageKey.col; j++)
             {
-                int index = j;
-                if(i > 0)
-                    index += i * 4;
+                    int index = j;
+                    if (i > 0)
+                        index += i * 4;
 
-                VBList[index] = view.findViewWithTag("VB_" + (i + 1) + "_" + (j + 1));
-                VBList[index].setText(KeyLabel[i][j]);
-                VBList[index].setOnClickListener(VBListener);
-                VBList[index].setClickable(false);
+                    VBList[index] = view.findViewWithTag("VB_" + (i + 1) + "_" + (j + 1));
+                    if(VBList[index] == null){
+                        continue;
+                    }
+                    VBList[index].setText(KeyLabel[i][j]);
+                    VBList[index].setOnClickListener(VBListener);
+                    VBList[index].setClickable(false);
             }
         }
     }
@@ -110,6 +139,9 @@ public class FirstFragment extends Fragment {
                 int index = j;
                 if(i > 0)
                     index += i * 4;
+
+                if(VBList[index] == null)
+                    continue;
 
                 VBList[index].setText(KeyLabel[i][j]);
             }

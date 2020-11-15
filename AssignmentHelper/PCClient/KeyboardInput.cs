@@ -54,19 +54,40 @@ public class KeyboardInput
             return true;
     }
 
-    public void Presskey(KeyCode vk, bool shift = false)
+    public void Presskey(KeyCode vk, bool shift = false, bool ctrl = false)
     {
-        Presskey((int)vk, shift);
+        Presskey((int)vk, shift, ctrl);
     }
 
-    public void Presskey(int vk, bool shift = false)
+    public void Presskey(int vk, bool shift = false, bool ctrl = false)
     {
         if (shift)
             keybd_event((uint)KeyCode.VK_SHIFT, MapVirtualKey((int)KeyCode.VK_SHIFT, 0), 0, 0);
+        if(ctrl)
+            keybd_event((uint)KeyCode.VK_CONTROL, MapVirtualKey((int)KeyCode.VK_CONTROL, 0), 0, 0);
 
-        keybd_event((uint)vk, MapVirtualKey(vk, 0), 0, 0);
-        keybd_event((uint)vk, MapVirtualKey(vk, 0), KEYEVENTF_KEYUP, 0);
+        if (vk >= 0xF1)
+        {
+            switch(vk)
+            {
+                case 0xF1:
+                    SendKeys.SendWait("√");
+                    break;
+                case 0xF2:
+                    SendKeys.SendWait("π");
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            keybd_event((uint)vk, MapVirtualKey(vk, 0), 0, 0);
+            keybd_event((uint)vk, MapVirtualKey(vk, 0), KEYEVENTF_KEYUP, 0);
+        }
 
+        if (ctrl)
+            keybd_event((uint)KeyCode.VK_CONTROL, MapVirtualKey((int)KeyCode.VK_CONTROL, 0), KEYEVENTF_KEYUP, 0);
         if (shift)
             keybd_event((uint)KeyCode.VK_SHIFT, MapVirtualKey((int)KeyCode.VK_SHIFT, 0), KEYEVENTF_KEYUP, 0);
     }

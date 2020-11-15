@@ -1,11 +1,14 @@
 package com.NewbDev.AssignmentHelper;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Vibrator;
 import android.view.View;
 
 import android.view.WindowManager;
@@ -21,8 +24,10 @@ public class MainActivity extends AppCompatActivity {
     public static KeyCodeStruct KeyMap[][][][];
     public static HashMap<Integer, String> KeyCode;
     public static View HelpButton;
-
-    ConnectWindow cw;
+    public static Vibrator vibrator;
+    public static AudioManager audioManager;
+    public static TextView ConnStat;
+    public static int InitPageNum = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +45,16 @@ public class MainActivity extends AppCompatActivity {
         KeyMap[0] = mKey.getKeyMap(1);
         KeyMap[1] = mKey.getKeyMap(2);
 
-        cw = new ConnectWindow();
-        cw.StartServer();
-
-        cw.setConnStat((TextView) findViewById(R.id.TV_ConnStat));
+        ConnStat = (TextView) findViewById(R.id.TV_ConnStat);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
     }
 
     @Override
     protected void onDestroy() {
-        cw.StopServer();
         super.onDestroy();
     }
 
