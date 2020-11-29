@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 import java.util.HashMap;
 
 public class ManageKey {
-    public static final int row = 7, col = 4;
+    public static final int row = 6, col = 4;
     private static KeyCodeStruct KeyMap[][][][];
     private static String KeyLabel[][][];
     private static HashMap<Integer, String> KeyCode;
@@ -48,10 +48,10 @@ public class ManageKey {
             KeyCode.put(0x22, "PgDn");
             KeyCode.put(0x23, "End");
             KeyCode.put(0x24, "Home");
-            KeyCode.put(0x25, "←");
-            KeyCode.put(0x26, "↑");
-            KeyCode.put(0x27, "→");
-            KeyCode.put(0x28, "↓");
+            KeyCode.put(0x25, "◀");
+            KeyCode.put(0x26, "▲");
+            KeyCode.put(0x27, "▶");
+            KeyCode.put(0x28, "▼");
             KeyCode.put(0x29, "Select");
             KeyCode.put(0x2A, "Print");
             KeyCode.put(0x2B, "Execute");
@@ -217,40 +217,39 @@ public class ManageKey {
         //기본 키맵
         //1번 키패드
         {
-            KeyMap[0][0][0][0] = new KeyCodeStruct(0xF1);   // √
-            KeyMap[0][0][1][0] = new KeyCodeStruct(0x36, true, false, false);   // 6 + Shift = ^
-            KeyMap[0][0][2][0] = new KeyCodeStruct(0x45);   // e
-            KeyMap[0][0][3][0] = new KeyCodeStruct(0xF2);   // π
+            //KeyMap[0][0][0][0] = new KeyCodeStruct(0xF1);   // √
+            KeyMap[0][0][0][0] = new KeyCodeStruct(0x36, true, false, false);   // 6 + Shift = ^
+            KeyMap[0][0][1][0] = new KeyCodeStruct(0x6F);   // /
+            KeyMap[0][0][2][0] = new KeyCodeStruct(0x6A);   // *
+            KeyMap[0][0][3][0] = new KeyCodeStruct(0x08);   // backspace
 
             KeyMap[0][1][0][0] = new KeyCodeStruct(0x67);   // Num7
             KeyMap[0][1][1][0] = new KeyCodeStruct(0x68);   // Num8
             KeyMap[0][1][2][0] = new KeyCodeStruct(0x69);   // Num9
-            KeyMap[0][1][3][0] = new KeyCodeStruct(0x6B);   // Num +
+            KeyMap[0][1][3][0] = new KeyCodeStruct(0x6D);   // Num -
 
             KeyMap[0][2][0][0] = new KeyCodeStruct(0x64);   // Num4
             KeyMap[0][2][1][0] = new KeyCodeStruct(0x65);   // Num5
             KeyMap[0][2][2][0] = new KeyCodeStruct(0x66);   // Num6
-            KeyMap[0][2][3][0] = new KeyCodeStruct(0x6D);   // Num -
+            KeyMap[0][2][3][0] = new KeyCodeStruct(0x6B);   // Num +
 
             KeyMap[0][3][0][0] = new KeyCodeStruct(0x61);   // Num1
             KeyMap[0][3][1][0] = new KeyCodeStruct(0x62);   // Num2
             KeyMap[0][3][2][0] = new KeyCodeStruct(0x63);   // Num3
-            KeyMap[0][3][3][0] = new KeyCodeStruct(0x6A);   // Num *
 
-            KeyMap[0][4][0][0] = new KeyCodeStruct(0x6E);   // Num .
-            KeyMap[0][4][1][0] = new KeyCodeStruct(0x60);   // Num0
-            KeyMap[0][4][2][0] = new KeyCodeStruct(0xBB);   // =
-            KeyMap[0][4][3][0] = new KeyCodeStruct(0x6F);   // Num /
+            KeyMap[0][3][3] = new KeyCodeStruct[3];   // Enter
+            KeyMap[0][3][3][0] = new KeyCodeStruct(0x39, true, false, false);   // (
+            KeyMap[0][3][3][1] = new KeyCodeStruct(0x30, true, false, false);   // )
+            KeyMap[0][3][3][2] = new KeyCodeStruct(0x25);   // ◀
 
-            KeyMap[0][5][0][0] = new KeyCodeStruct(0x49);   // j
+            KeyMap[0][4][0][0] = new KeyCodeStruct(0x60);   // Num 0
+            KeyMap[0][4][1][0] = new KeyCodeStruct(0x6E);   // Num .
+            KeyMap[0][4][2][0] = new KeyCodeStruct(0x4A);   // j
+            KeyMap[0][4][3][0] = new KeyCodeStruct(0x0D);   // Enter
+
+            KeyMap[0][5][0][0] = new KeyCodeStruct(0x25);   // ◀
             KeyMap[0][5][1][0] = new KeyCodeStruct(0x20);   // Space
-            KeyMap[0][5][2][0] = new KeyCodeStruct(0x0D);   // Enter
-
-            KeyMap[0][6][0][0] = new KeyCodeStruct(0x08);   // Backspace
-            // Ctrl + A, Del
-            KeyMap[0][6][1] = new KeyCodeStruct[2];
-            KeyMap[0][6][1][0] = new KeyCodeStruct(0x41, false, true, false);   // Ctrl + A
-            KeyMap[0][6][1][1] = new KeyCodeStruct(0x2E);   // Del
+            KeyMap[0][5][2][0] = new KeyCodeStruct(0x27);   // ▶
 
             //3.14
 //            KeyMap[0][5][1] = new KeyCodeStruct[4];
@@ -304,26 +303,47 @@ public class ManageKey {
             KeyMap[1][0][3][2] = new KeyCodeStruct(0x25);   // <-
 
             //sin-1
-            KeyMap[1][1][0] = new KeyCodeStruct[5];
-            KeyMap[1][1][0][0] = new KeyCodeStruct(0x53);   // s
-            KeyMap[1][1][0][1] = new KeyCodeStruct(0x49);   // i
-            KeyMap[1][1][0][2] = new KeyCodeStruct(0x4E);   // n
-            KeyMap[1][1][0][3] = new KeyCodeStruct(0xBD);   // -
-            KeyMap[1][1][0][4] = new KeyCodeStruct(0x31);   // 1
+            KeyMap[1][1][0] = new KeyCodeStruct[12];
+            KeyMap[1][1][0][0] = new KeyCodeStruct(0x49);   // i
+            KeyMap[1][1][0][1] = new KeyCodeStruct(0x4E);   // n
+            KeyMap[1][1][0][2] = new KeyCodeStruct(0x56);   // v
+            KeyMap[1][1][0][3] = new KeyCodeStruct(0x39, true, false, false);   // (
+            KeyMap[1][1][0][4] = new KeyCodeStruct(0x53);   // s
+            KeyMap[1][1][0][5] = new KeyCodeStruct(0x49);   // i
+            KeyMap[1][1][0][6] = new KeyCodeStruct(0x4E);   // n
+            KeyMap[1][1][0][7] = new KeyCodeStruct(0x39, true, false, false);   // (
+            KeyMap[1][1][0][8] = new KeyCodeStruct(0x30, true, false, false);   // )
+            KeyMap[1][1][0][9] = new KeyCodeStruct(0x30, true, false, false);   // )
+            KeyMap[1][1][0][10] = new KeyCodeStruct(0x25);   // <-
+            KeyMap[1][1][0][11] = new KeyCodeStruct(0x25);   // <-
             //cos-1
-            KeyMap[1][1][1] = new KeyCodeStruct[5];
-            KeyMap[1][1][1][0] = new KeyCodeStruct(0x43);   // c
-            KeyMap[1][1][1][1] = new KeyCodeStruct(0x4F);   // o
-            KeyMap[1][1][1][2] = new KeyCodeStruct(0x53);   // s
-            KeyMap[1][1][1][3] = new KeyCodeStruct(0xBD);   // -
-            KeyMap[1][1][1][4] = new KeyCodeStruct(0x31);   // 1
+            KeyMap[1][1][1] = new KeyCodeStruct[12];
+            KeyMap[1][1][1][0] = new KeyCodeStruct(0x49);   // i
+            KeyMap[1][1][1][1] = new KeyCodeStruct(0x4E);   // n
+            KeyMap[1][1][1][2] = new KeyCodeStruct(0x56);   // v
+            KeyMap[1][1][1][3] = new KeyCodeStruct(0x39, true, false, false);   // (
+            KeyMap[1][1][1][4] = new KeyCodeStruct(0x43);   // c
+            KeyMap[1][1][1][5] = new KeyCodeStruct(0x4F);   // o
+            KeyMap[1][1][1][6] = new KeyCodeStruct(0x53);   // s
+            KeyMap[1][1][1][7] = new KeyCodeStruct(0x39, true, false, false);   // (
+            KeyMap[1][1][1][8] = new KeyCodeStruct(0x30, true, false, false);   // )
+            KeyMap[1][1][1][9] = new KeyCodeStruct(0x30, true, false, false);   // )
+            KeyMap[1][1][1][10] = new KeyCodeStruct(0x25);   // <-
+            KeyMap[1][1][1][11] = new KeyCodeStruct(0x25);   // <-
             //tan-1
-            KeyMap[1][1][2] = new KeyCodeStruct[5];
-            KeyMap[1][1][2][0] = new KeyCodeStruct(0x54);   // t
-            KeyMap[1][1][2][1] = new KeyCodeStruct(0x41);   // a
-            KeyMap[1][1][2][2] = new KeyCodeStruct(0x4E);   // n
-            KeyMap[1][1][2][3] = new KeyCodeStruct(0xBD);   // -
-            KeyMap[1][1][2][4] = new KeyCodeStruct(0x31);   // 1
+            KeyMap[1][1][2] = new KeyCodeStruct[12];
+            KeyMap[1][1][2][0] = new KeyCodeStruct(0x49);   // i
+            KeyMap[1][1][2][1] = new KeyCodeStruct(0x4E);   // n
+            KeyMap[1][1][2][2] = new KeyCodeStruct(0x56);   // v
+            KeyMap[1][1][2][3] = new KeyCodeStruct(0x39, true, false, false);   // (
+            KeyMap[1][1][2][4] = new KeyCodeStruct(0x54);   // t
+            KeyMap[1][1][2][5] = new KeyCodeStruct(0x41);   // a
+            KeyMap[1][1][2][6] = new KeyCodeStruct(0x4E);   // n
+            KeyMap[1][1][2][7] = new KeyCodeStruct(0x39, true, false, false);   // (
+            KeyMap[1][1][2][8] = new KeyCodeStruct(0x30, true, false, false);   // )
+            KeyMap[1][1][2][9] = new KeyCodeStruct(0x30, true, false, false);   // )
+            KeyMap[1][1][2][10] = new KeyCodeStruct(0x25);   // <-
+            KeyMap[1][1][2][11] = new KeyCodeStruct(0x25);   // <-
             // [, ], <-
             KeyMap[1][1][3] = new KeyCodeStruct[3];
             KeyMap[1][1][3][0] = new KeyCodeStruct(0xDB);   // [
@@ -331,41 +351,45 @@ public class ManageKey {
             KeyMap[1][1][3][2] = new KeyCodeStruct(0x25);   // <-
 
             //sinh
-            KeyMap[1][2][0] = new KeyCodeStruct[4];
+            KeyMap[1][2][0] = new KeyCodeStruct[7];
             KeyMap[1][2][0][0] = new KeyCodeStruct(0x53);   // s
             KeyMap[1][2][0][1] = new KeyCodeStruct(0x49);   // i
             KeyMap[1][2][0][2] = new KeyCodeStruct(0x4E);   // n
             KeyMap[1][2][0][3] = new KeyCodeStruct(0x48);   // h
+            KeyMap[1][2][0][4] = new KeyCodeStruct(0x39, true, false, false);   // (
+            KeyMap[1][2][0][5] = new KeyCodeStruct(0x30, true, false, false);   // )
+            KeyMap[1][2][0][6] = new KeyCodeStruct(0x25);   // <-
             //cosh
-            KeyMap[1][2][1] = new KeyCodeStruct[4];
+            KeyMap[1][2][1] = new KeyCodeStruct[7];
             KeyMap[1][2][1][0] = new KeyCodeStruct(0x43);   // c
             KeyMap[1][2][1][1] = new KeyCodeStruct(0x4F);   // o
             KeyMap[1][2][1][2] = new KeyCodeStruct(0x53);   // s
             KeyMap[1][2][1][3] = new KeyCodeStruct(0x48);   // h
+            KeyMap[1][2][1][4] = new KeyCodeStruct(0x39, true, false, false);   // (
+            KeyMap[1][2][1][5] = new KeyCodeStruct(0x30, true, false, false);   // )
+            KeyMap[1][2][1][6] = new KeyCodeStruct(0x25);   // <-
             //tanh
-            KeyMap[1][2][2] = new KeyCodeStruct[4];
+            KeyMap[1][2][2] = new KeyCodeStruct[7];
             KeyMap[1][2][2][0] = new KeyCodeStruct(0x54);   // t
             KeyMap[1][2][2][1] = new KeyCodeStruct(0x41);   // a
             KeyMap[1][2][2][2] = new KeyCodeStruct(0x4E);   // n
             KeyMap[1][2][2][3] = new KeyCodeStruct(0x48);   // h
+            KeyMap[1][2][2][4] = new KeyCodeStruct(0x39, true, false, false);   // (
+            KeyMap[1][2][2][5] = new KeyCodeStruct(0x30, true, false, false);   // )
+            KeyMap[1][2][2][6] = new KeyCodeStruct(0x25);   // <-
 
             KeyMap[1][2][3][0] = new KeyCodeStruct(0xBC);  // ,
 
-            KeyMap[1][3][1][0] = new KeyCodeStruct(0x26);   // ↑
+            KeyMap[1][3][1][0] = new KeyCodeStruct(0x26);   // ▲
             KeyMap[1][3][3][0] = new KeyCodeStruct(0xBA);   // ;
 
-            KeyMap[1][4][0][0] = new KeyCodeStruct(0x25);   // ←
-            KeyMap[1][4][1][0] = new KeyCodeStruct(0x28);   // ↓
-            KeyMap[1][4][2][0] = new KeyCodeStruct(0x27);   // →
+            KeyMap[1][4][0][0] = new KeyCodeStruct(0x25);   // ◀
+            KeyMap[1][4][1][0] = new KeyCodeStruct(0x28);   // ▼
+            KeyMap[1][4][2][0] = new KeyCodeStruct(0x27);   // ▶
 
-            KeyMap[1][5][1][0] = new KeyCodeStruct(0x20);   // space
-            KeyMap[1][5][2][0] = new KeyCodeStruct(0x0D);   // Enter
-
-            KeyMap[1][6][0][0] = new KeyCodeStruct(0x08);   // Backspace
-            // Ctrl + A, Del
-            KeyMap[1][6][1] = new KeyCodeStruct[2];
-            KeyMap[1][6][1][0] = new KeyCodeStruct(0x41, false, true, false);   // Ctrl + A
-            KeyMap[1][6][1][1] = new KeyCodeStruct(0x2E);   // Del
+            KeyMap[1][5][0][0] = new KeyCodeStruct(0x25);   // ◀
+            KeyMap[1][5][1][0] = new KeyCodeStruct(0x20);   // Space
+            KeyMap[1][5][2][0] = new KeyCodeStruct(0x27);   // ▶
         }
     }
 
@@ -375,7 +399,8 @@ public class ManageKey {
 
         //저장된 라벨 가져오기
         //미구현
-        KeyLabel[0][0][1] = "^";
+        KeyLabel[0][0][0] = "^";
+        KeyLabel[0][0][3] = "←";
 
         KeyLabel[0][1][0] = "7";
         KeyLabel[0][1][1] = "8";
@@ -388,18 +413,19 @@ public class ManageKey {
         KeyLabel[0][3][0] = "1";
         KeyLabel[0][3][1] = "2";
         KeyLabel[0][3][2] = "3";
+        KeyLabel[0][3][3] = "( )";
 
-        KeyLabel[0][4][1] = "0";
+        KeyLabel[0][4][0] = "0";
+        KeyLabel[0][4][3] = "↵";
 
-        KeyLabel[0][6][0] = "Del";
-        KeyLabel[0][6][1] = "Clear";
+        KeyLabel[0][5][1] = "⌴";
 
         KeyLabel[1][0][0] = "sin";
         KeyLabel[1][0][1] = "cos";
         KeyLabel[1][0][2] = "tan";
         KeyLabel[1][0][3] = "{ }";
 
-        KeyLabel[1][1][0] = "sin-1";
+        KeyLabel[1][1][0] = "sin-1";    // inv(sin())
         KeyLabel[1][1][1] = "cos-1";
         KeyLabel[1][1][2] = "tan-1";
         KeyLabel[1][1][3] = "[ ]";
@@ -408,14 +434,13 @@ public class ManageKey {
         KeyLabel[1][2][1] = "cosh";
         KeyLabel[1][2][2] = "tanh";
 
-        KeyLabel[1][3][1] = "↑";
+        KeyLabel[1][3][1] = "▲";
 
-        KeyLabel[1][4][0] = "←";
-        KeyLabel[1][4][1] = "↓";
-        KeyLabel[1][4][2] = "→";
+        KeyLabel[1][4][0] = "◀";
+        KeyLabel[1][4][1] = "▼";
+        KeyLabel[1][4][2] = "▶";
 
-        KeyLabel[1][6][0] = "Del";
-        KeyLabel[1][6][1] = "Clear";
+        KeyLabel[1][5][1] = "⌴";
 
         //저장된 라벨이 없다면 기본 라벨 지정
         for(int k = 0; k < 2; k++) {

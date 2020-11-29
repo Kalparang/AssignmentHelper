@@ -42,7 +42,7 @@ public class FirstFragment extends Fragment {
 
                 cw.SendData(KeyMap[row][col]);
 
-                MainActivity.vibrator.vibrate(VibrationEffect.createOneShot(40, 30));
+                MainActivity.vibrator.vibrate(VibrationEffect.createOneShot(40, 50));
                 MainActivity.audioManager.playSoundEffect(SoundEffectConstants.CLICK);
             }
         }
@@ -69,6 +69,7 @@ public class FirstFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         cw.StopServer();
+        MainActivity.ConnStat.setVisibility(View.INVISIBLE);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -122,6 +123,7 @@ public class FirstFragment extends Fragment {
                     VBList[index].setText(KeyLabel[i][j]);
                     VBList[index].setOnClickListener(VBListener);
                     VBList[index].setClickable(false);
+                    VBList[index].setTextSize(19);
             }
         }
     }

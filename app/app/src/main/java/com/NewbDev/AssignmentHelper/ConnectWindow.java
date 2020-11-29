@@ -56,8 +56,8 @@ public class ConnectWindow {
     public void StopServer()
     {
         try {
-            socket.close();
-            serverSocket.close();
+            if(socket != null) socket.close();
+            if(serverSocket != null) serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -7,60 +7,15 @@
     tools:context=".FirstFragment">
 
     <Button
-        android:id="@+id/VB_6_1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/vb_side_margin"
-        android:layout_marginTop="@dimen/vb_vert_margin"
-        android:layout_marginEnd="@dimen/vb_horz_margin"
-        android:layout_marginBottom="@dimen/vb_bott_margin"
-        android:clickable="false"
-        android:tag="VB_6_1"
-        app:layout_constraintBottom_toTopOf="@+id/VB_7_1"
-        app:layout_constraintEnd_toStartOf="@+id/VB_6_2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/VB_5_1" />
-
-    <Button
-        android:id="@+id/VB_6_3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/vb_horz_margin"
-        android:layout_marginTop="@dimen/vb_vert_margin"
-        android:layout_marginEnd="@dimen/vb_side_margin"
-        android:layout_marginBottom="@dimen/vb_bott_margin"
-        android:clickable="false"
-        android:tag="VB_6_3"
-        app:layout_constraintBottom_toTopOf="@+id/button_first"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/VB_6_2"
-        app:layout_constraintTop_toBottomOf="@+id/VB_5_4" />
-
-    <Button
-        android:id="@+id/VB_6_2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/vb_horz_margin"
-        android:layout_marginTop="@dimen/vb_vert_margin"
-        android:layout_marginEnd="@dimen/vb_horz_margin"
-        android:layout_marginBottom="@dimen/vb_bott_margin"
-        android:clickable="false"
-        android:tag="VB_6_2"
-        app:layout_constraintBottom_toTopOf="@+id/VB_7_2"
-        app:layout_constraintEnd_toStartOf="@+id/VB_6_3"
-        app:layout_constraintStart_toEndOf="@+id/VB_6_1"
-        app:layout_constraintTop_toBottomOf="@+id/VB_5_3" />
-
-    <Button
         android:id="@+id/VB_5_1"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/vb_side_margin"
         android:layout_marginTop="@dimen/vb_vert_margin"
         android:layout_marginEnd="@dimen/vb_horz_margin"
-        android:layout_marginBottom="@dimen/vb_vert_margin"
         android:clickable="false"
         android:tag="VB_5_1"
+
         app:layout_constraintBottom_toTopOf="@+id/VB_6_1"
         app:layout_constraintEnd_toStartOf="@+id/VB_5_2"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,10 +28,9 @@
         android:layout_marginStart="@dimen/vb_horz_margin"
         android:layout_marginTop="@dimen/vb_vert_margin"
         android:layout_marginEnd="@dimen/vb_horz_margin"
-        android:layout_marginBottom="@dimen/vb_vert_margin"
         android:clickable="false"
         android:tag="VB_5_3"
-        app:layout_constraintBottom_toTopOf="@+id/VB_6_2"
+        app:layout_constraintBottom_toTopOf="@+id/VB_6_3"
         app:layout_constraintEnd_toStartOf="@+id/VB_5_4"
         app:layout_constraintStart_toEndOf="@+id/VB_5_2"
         app:layout_constraintTop_toBottomOf="@+id/VB_4_3" />
@@ -88,10 +42,9 @@
         android:layout_marginStart="@dimen/vb_horz_margin"
         android:layout_marginTop="@dimen/vb_vert_margin"
         android:layout_marginEnd="@dimen/vb_side_margin"
-        android:layout_marginBottom="@dimen/vb_vert_margin"
         android:clickable="false"
         android:tag="VB_5_4"
-        app:layout_constraintBottom_toTopOf="@+id/VB_6_3"
+        app:layout_constraintBottom_toTopOf="@+id/button_first"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/VB_5_3"
         app:layout_constraintTop_toBottomOf="@+id/VB_4_4" />
@@ -103,7 +56,6 @@
         android:layout_marginStart="@dimen/vb_horz_margin"
         android:layout_marginTop="@dimen/vb_vert_margin"
         android:layout_marginEnd="@dimen/vb_horz_margin"
-        android:layout_marginBottom="@dimen/vb_horz_margin"
         android:clickable="false"
         android:tag="VB_5_2"
         app:layout_constraintBottom_toTopOf="@+id/VB_6_2"
@@ -301,30 +253,42 @@
         android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/VB_7_2" />
+        app:layout_constraintStart_toEndOf="@+id/VB_6_3" />
 
     <Button
-        android:id="@+id/VB_7_2"
+        android:id="@+id/VB_6_2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/vb_vert_margin"
         android:layout_marginEnd="@dimen/vb_vert_margin"
         android:clickable="false"
-        android:tag="VB_7_2"
+        android:tag="VB_6_2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_first"
-        app:layout_constraintStart_toEndOf="@+id/VB_7_1" />
+        app:layout_constraintEnd_toStartOf="@+id/VB_6_3"
+        app:layout_constraintStart_toEndOf="@+id/VB_6_1" />
 
     <Button
-        android:id="@+id/VB_7_1"
+        android:id="@+id/VB_6_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vb_vert_margin"
+        android:layout_marginEnd="@dimen/vb_vert_margin"
+        android:clickable="false"
+        android:tag="VB_6_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_first"
+        app:layout_constraintStart_toEndOf="@+id/VB_6_2" />
+
+    <Button
+        android:id="@+id/VB_6_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/vb_side_margin"
         android:layout_marginEnd="@dimen/vb_vert_margin"
         android:clickable="false"
-        android:tag="VB_7_1"
+        android:tag="VB_6_1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/VB_7_2"
+        app:layout_constraintEnd_toStartOf="@+id/VB_6_2"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
